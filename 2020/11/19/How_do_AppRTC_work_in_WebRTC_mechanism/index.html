@@ -1,0 +1,284 @@
+
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7" lang="zh-tw"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8" lang="zh-tw"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="zh-tw"><!--<![endif]-->
+<head>
+    <meta charset="UTF-8">
+    <title>How do AppRTC work in WebRTC mechanism ?</title>
+
+    <meta name="author" content="John Doe">
+
+    <link rel="shortcut icon" href="/images/favicon.png">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+    <link rel="canonical" href="http://example.com/2020/11/19/How_do_AppRTC_work_in_WebRTC_mechanism/">
+
+    
+        <link rel="alternate" href="/atom.xml" type="application/atom+xml">
+    
+
+    
+
+    
+<script src="/js/modernizr-2.0.js"></script>
+
+
+    
+<script src="/js/jquery-1.9.1.js"></script>
+
+
+    
+    <script>window.twttr = (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0],
+                t = window.twttr || {};
+            if (d.getElementById(id)) return t;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://platform.twitter.com/widgets.js";
+            fjs.parentNode.insertBefore(js, fjs);
+
+            t._e = [];
+            t.ready = function(f) {
+                t._e.push(f);
+            };
+
+            return t;
+        }(document, "script", "twitter-wjs"));</script>
+
+    
+    <link rel="me" href="https://twitter.com/your_twitter">
+    
+
+
+
+    
+<script src="/js/octo.js"></script>
+
+
+    
+<link rel="stylesheet" href="/css/octo.css">
+
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet"
+          type="text/css">
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet"
+          type="text/css">
+
+    
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+
+<header role="banner">
+    <hgroup>
+        <h1><a href="/">Jerry Wang Blog</a></h1>
+        
+    </hgroup>
+</header>
+
+<nav role="navigation">
+    
+        <ul class="subscription" data-subscription="rss">
+            <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+        </ul>
+    
+
+    <form action="https://google.com/search" method="get">
+        <fieldset role="search">
+            <input type="hidden" name="q" value="site:http://example.com/">
+            <input class="search" type="text" name="q" results="0" placeholder="Search">
+        </fieldset>
+    </form>
+
+    <ul class="main-navigation">
+        
+            <li><a href="/">Blog</a></li>
+        
+            <li><a href="/archives">Archives</a></li>
+        
+    </ul>
+</nav>
+
+
+<div id="main">
+    <div id="content">
+        <div>
+    <article class="hentry" role="article">
+        <header>
+            <h1 class="entry-title">How do AppRTC work in WebRTC mechanism ?</h1>
+            <p class="meta">
+                <time datetime="2020-11-19T11:55:38.000Z" data-updated="true">Thu Nov 19 2020</time>
+            </p>
+        </header>
+        <div class="entry-content">
+            <p>In this article, we illustrate how AppRTC do work.</p>
+<p>AppRTC is a WebRTC open source repo that implements two clients who can communicate with each other with webcam and voice. That works like a chatting room but only two persons in the room. When there have two clients in the room, they will exchange some messages for building a p2p connection and starting communication.</p>
+<p>But it doesn’t the whole WebRTC main mechanism that is only data exchange and manages the connection process. So AppRTC is a sample system when the coder implements WebRTC, help them decrease the development time.</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/webrtc/apprtc">AppRTC Repo is here!</a><br><a target="_blank" rel="noopener" href="https://www.w3.org/TR/webrtc/#peer-to-peer-connections">WebRTC mechanism</a></p>
+</blockquote>
+<p>**Manipulate AppRTC<br>**First, one client joins a room and waiting for the other client to join. At once, there are two clients in the room, they can chat with each other.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*SBGnOfjTNDU7TciZLndoLg.gif" alt="img"></p>
+<p>**The AppRTC Implement (not include p2p mechanism)<br>**We divided into two part to illustrate AppRTC work. The first client join room and the second client join room.</p>
+<p>The first client join room:</p>
+<ol>
+<li>Get / for getting AppRTC home page.</li>
+<li>Post /join/:room_id for registry room id into AppRTC and getting a Client ID to registry Signal Server.</li>
+<li>Use Client ID to registry Signal Server (Collider Server)<br>send /ws {cmd: “register”, “roomid”:””, “clientid”: “”}</li>
+<li>POST /message/:room_id/:client_id for storing p2p connection message into AppRTC Server.(About sdp、(ICE) candidate messages)</li>
+<li>Waiting another sdp and (ICE) Candidate message.</li>
+</ol>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*d7Ukv4SqzjIzhaqObqWVJA.png" alt="img"></p>
+<p>The second client join room:</p>
+<ol>
+<li>Get / for getting AppRTC home page.</li>
+<li>Post /join/:room_id for registry room id into AppRTC and getting a Client ID to registry Signal Server and <strong>first client p2p connection cache(sdp, (ICE)</strong> <strong>candidate)</strong></li>
+<li>According to cache generates a new p2p connection message and send it by WebSocket to the first client</li>
+<li>Two clients communicate with each other through p2p.</li>
+</ol>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*6QtDR_rI77tXj4lcQcM5nw.png" alt="img"></p>
+<p>The Collider Server API</p>
+<p>The Collider server has two functions. one is HTTP, the other one is WebSocket. The WebSocket API is for the client to communicate with each other like registry and send these actions. The HTTP API is for AppRTC server sync room status.</p>
+<h2 id="WebSocket-API"><a href="#WebSocket-API" class="headerlink" title="WebSocket API"></a>WebSocket API</h2><table>
+<thead>
+<tr>
+<th>numbers</th>
+<th>parameters</th>
+<th>illustration</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>{cmd: “register”, “roomid”:””, “clientid”: “”}</td>
+<td>join room</td>
+</tr>
+<tr>
+<td>2</td>
+<td>{cmd: “send”, “roomid”:””, “clientid”: “”, “msg”:”<em><strong>JSON string</strong></em>“}</td>
+<td>send message to the other client</td>
+</tr>
+</tbody></table>
+<h2 id="HTTP-API"><a href="#HTTP-API" class="headerlink" title="HTTP API"></a>HTTP API</h2><table>
+<thead>
+<tr>
+<th align="center">numbers</th>
+<th align="center">parameters</th>
+<th>illustration</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">post /bye/:room_id:/:client_id</td>
+<td>delete collider room status</td>
+</tr>
+</tbody></table>
+<p>**Conclusion<br>**In the AppRTC demo application, it follows <a target="_blank" rel="noopener" href="https://medium.com/%E5%BE%AE%E5%B3%AF%E9%A3%9B%E7%BF%94/broker%E5%88%B0%E5%BA%95%E6%98%AF%E4%BB%80%E9%BA%BC-707ddc05268a">Broker Architecture</a> to coordinate p2p message exchange. Though the key-point is not <strong>the sdp and (ICE) candidate</strong> message exchanged method, but it still important to manage the exchange process. So if you read AppRTC open source, this article can help you modify this project.</p>
+
+        </div>
+        <footer>
+            <p class="meta">
+                <span class="byline author vcard">Posted by <span class="fn">John Doe</span></span>
+                <time datetime="2020-11-19T11:55:38.000Z" data-updated="true">Thu Nov 19 2020</time>
+                
+            </p>
+            <div class="sharing">
+    
+        <a class="twitter-share-button"
+           target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=How%20do%20AppRTC%20work%20in%20WebRTC%20mechanism%20%3F">
+            Tweet
+        </a>
+    
+</div>
+
+            <p class="meta">
+                
+                <a class="basic-alignment left" href="/" title="Previous Post: Overview The WebSocket Mechanism">« Overview The WebSocket Mechanism</a>
+                
+
+                
+                <a class="basic-alignment right" href="/" title="Previous Post: Broker 到底是什麼？">Broker 到底是什麼？ »</a>
+                
+            </p>
+        </footer>
+    </article>
+
+    
+
+</div>
+
+<aside class="sidebar">
+    <section class="odd">
+    <h1>Recent Posts</h1>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/04/18/nosql_database_selection_guild/">淺談-NoSQL資料庫怎麼選？</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/03/07/blockchain_security_problem/">區塊鏈物聯網架構 解決哪些安全性議題？</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/21/golang_goroutine/">Golang Goroutine Concurrency-多執行緒必要知道的五件事情</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/20/rfc_oauth%202.0/">從 RFC 規格書觀點解析 OAuth 2.0</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/06/Golang_go_mod/">Golang go mod 入門</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/25/Overview_The_WebSocket_Mechanism/">Overview The WebSocket Mechanism</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/19/How_do_AppRTC_work_in_WebRTC_mechanism/">How do AppRTC work in WebRTC mechanism ?</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/11/what_is_Broker/">Broker 到底是什麼？</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/04/use_TorchServe_deploy_Model/">使用 TorchServe 部署 Model</a></li></ul>
+</section><section class="even">
+    <h1>GitHub Repos</h1>
+    <ul id="gh_repos">
+        <li class="loading">Status updating&#8230;</li>
+    </ul>
+
+    <a target="_blank" rel="noopener" href="https://github.com/your_github">@your_github</a> on GitHub
+
+    <script>
+        $(document).ready(function(){
+            const options = {
+                user: 'your_github',
+                count: 0,
+                skip_forks: true,
+                target: '#gh_repos'
+            }
+
+            function escapeHtml(str) {
+                return $('<div/>').text(str).html();
+            }
+
+            function render(target, repos){
+                let i, fragment = '', t = $(target)[0];
+
+                for(i = 0; i < repos.length; i++) {
+                    fragment += '<li><a href="'+repos[i].html_url+'">'+repos[i].name+'</a><p>'+escapeHtml(repos[i].description||'')+'</p></li>';
+                }
+                t.innerHTML = fragment;
+            }
+
+            $.ajax({
+                url: "https://api.github.com/users/"+options.user+"/repos?sort=pushed&callback=?",
+                dataType: 'jsonp',
+                error: function (err) {
+                    $(options.target + ' li.loading').addClass('error').text("Error loading feed");
+                },
+                success: function(data) {
+                    var repos = [];
+                    if (!data || !data.data) { return; }
+                    for (var i = 0; i < data.data.length; i++) {
+                        if (options.skip_forks && data.data[i].fork) { continue; }
+                        repos.push(data.data[i]);
+                    }
+                    if (options.count) { repos.splice(options.count); }
+                    render(options.target, repos);
+                }
+            });
+        });
+    </script>
+</section>
+</aside>
+
+    </div>
+</div>
+
+<footer role="contentinfo">
+    <p>
+        Copyright © 2021 - John Doe -
+        <span class="credit">Generated using <a target="_blank" rel="noopener" href="https://github.com/jbreckmckye/hexo-theme-octo">Octo theme</a> for <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></span>
+    </p>
+</footer>
+
+
+
+</body>
+</html>

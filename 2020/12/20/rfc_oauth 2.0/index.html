@@ -1,0 +1,293 @@
+
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7" lang="zh-tw"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8" lang="zh-tw"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="zh-tw"><!--<![endif]-->
+<head>
+    <meta charset="UTF-8">
+    <title>從 RFC 規格書觀點解析 OAuth 2.0</title>
+
+    <meta name="author" content="John Doe">
+
+    <link rel="shortcut icon" href="/images/favicon.png">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+    <link rel="canonical" href="http://example.com/2020/12/20/rfc_oauth 2.0/">
+
+    
+        <link rel="alternate" href="/atom.xml" type="application/atom+xml">
+    
+
+    
+
+    
+<script src="/js/modernizr-2.0.js"></script>
+
+
+    
+<script src="/js/jquery-1.9.1.js"></script>
+
+
+    
+    <script>window.twttr = (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0],
+                t = window.twttr || {};
+            if (d.getElementById(id)) return t;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://platform.twitter.com/widgets.js";
+            fjs.parentNode.insertBefore(js, fjs);
+
+            t._e = [];
+            t.ready = function(f) {
+                t._e.push(f);
+            };
+
+            return t;
+        }(document, "script", "twitter-wjs"));</script>
+
+    
+    <link rel="me" href="https://twitter.com/your_twitter">
+    
+
+
+
+    
+<script src="/js/octo.js"></script>
+
+
+    
+<link rel="stylesheet" href="/css/octo.css">
+
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet"
+          type="text/css">
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet"
+          type="text/css">
+
+    
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+
+<header role="banner">
+    <hgroup>
+        <h1><a href="/">Jerry Wang Blog</a></h1>
+        
+    </hgroup>
+</header>
+
+<nav role="navigation">
+    
+        <ul class="subscription" data-subscription="rss">
+            <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+        </ul>
+    
+
+    <form action="https://google.com/search" method="get">
+        <fieldset role="search">
+            <input type="hidden" name="q" value="site:http://example.com/">
+            <input class="search" type="text" name="q" results="0" placeholder="Search">
+        </fieldset>
+    </form>
+
+    <ul class="main-navigation">
+        
+            <li><a href="/">Blog</a></li>
+        
+            <li><a href="/archives">Archives</a></li>
+        
+    </ul>
+</nav>
+
+
+<div id="main">
+    <div id="content">
+        <div>
+    <article class="hentry" role="article">
+        <header>
+            <h1 class="entry-title">從 RFC 規格書觀點解析 OAuth 2.0</h1>
+            <p class="meta">
+                <time datetime="2020-12-20T11:55:38.000Z" data-updated="true">Sun Dec 20 2020</time>
+            </p>
+        </header>
+        <div class="entry-content">
+            <p><strong>co-author:</strong> <a target="_blank" rel="noopener" href="https://medium.com/u/e56c5b49cd7e"><strong>MowLi 微風</strong></a></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*MUinbUTGNqXuICy6QauZiw.jpeg" alt="img"></p>
+<p>OAuth2 目前一種 Web 主流的安全認證方法，是一種授權框架，資源所有者(Resource Owner)可以藉由授權伺服器(Authorization Server)來允許第三方應用程式(Client)來訪問的受保護的資源(Protected Resource)。</p>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Client</td>
+<td>所使用的存取工具或程式，如 Browser, Mobile Phone, Postman</td>
+</tr>
+<tr>
+<td>Resource Owner</td>
+<td>具備服務存取資格的人</td>
+</tr>
+<tr>
+<td>Authorization Server</td>
+<td>負責認證的伺服器，主要負責發行Access Token</td>
+</tr>
+<tr>
+<td>Protected Resource</td>
+<td>欲存取的服務</td>
+</tr>
+</tbody></table>
+<p>OAuth2 角色分配表</p>
+<p>舉一個最常被 OAuth 相關書籍提及的例子：你(Resource Owner)有一張儲存在雲端服務的相片(Protected Resource)，今天你想要透過一個影印服務(Client)去列印該相片。</p>
+<p>在傳統做法上，為了讓影印服務(Client)拿到相片就必須將你的雲端服務的憑證（例如：帳號密碼）給這個影印服務，讓它能存取該雲端服務的資源。而 IETF RFC 6749 及 Action 書中列出了一些缺點：</p>
+<ul>
+<li>Client 需要儲存資源所有者的憑證，通常會是明文形式的密碼</li>
+<li>Client 擁有過大對受保護資源的訪問權限，而且資源所有者沒有辦法限制它訪問時間或訪問資源的範圍</li>
+<li>資源所有者只能透過更改雲端服務的密碼來撤銷影印服務的訪問權限，而且沒有辦法只撤銷一個（其它用到雲端服務的 Client 應用程式都會受到影響）</li>
+<li>如果 Client 受到攻擊，該攻擊者還能存取受保護資源，以及資源擁有者其它使用相同密碼的服務（很多人在不同網站都設同一組帳密）</li>
+</ul>
+<p>綜觀來說，在 OAuth2 中：</p>
+<ol>
+<li>Client 必須先向 Resource Owner 請求授權來獲得 Authorization Grant，這裡面會包括 Client 能存取資源的範圍。</li>
+<li>Client 藉由 Authorization Grant 向 Authorization Server 獲取一個有時效性/永久性的 Access Token。</li>
+<li>以 Access Token 來存取 Protected Resource，而不是直接以 Resource Owner 的帳號密碼來存取。</li>
+</ol>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*VyrcXzN1D0vpOw9Y5TIR9A.png" alt="img">OAuth2 Framework</p>
+<p>簡單來說，Client若要存取服務的話，首先要先拿到<strong>Authorization Grant</strong>，再使用Grant拿取<strong>Access Token</strong>，最後再使用Access Token<strong>存取服務</strong>。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*l5TgbUBqMWW0wvPn8-wdJw.png" alt="img">Access Work Flow in OAuth2</p>
+<h2 id="Authorization-Grant依照存取程度分為四種方式存取-Protected-Resource"><a href="#Authorization-Grant依照存取程度分為四種方式存取-Protected-Resource" class="headerlink" title="Authorization Grant依照存取程度分為四種方式存取 Protected Resource:"></a>Authorization Grant依照存取程度分為四種方式存取 Protected Resource:</h2><ul>
+<li><strong>Authorization Code<br>屬於比較廣泛被使用的</strong>，client 取得 Authorization Code 才能以此換取access token。</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*nJVTrVbGWxxjD0ZUulzo5A.png" alt="img"><strong>Authorization Code Grant</strong></p>
+<ul>
+<li>**Implicit<br>**是相對安全性來的稍微低一點，是直接取得 access token。好處是可以減少存取的 round trip 加速認證的過程。</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*cKtqMkJIsoUP_soge2bhiQ.png" alt="img"><strong>Implicit Grant</strong></p>
+<ul>
+<li>**Resource Owner Password Credentials Grant<br>**指的是直接透過 password 直接從 Authorization Server 取得 access token，比較適合使用在可以信任的 client。</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*Z2dTiCFcvJBpo_MooR1uAg.png" alt="img"><strong>Resource Owner Password Credentials Grant</strong></p>
+<ul>
+<li><strong>Client Credentials</strong><br>完全信任 client，直接取得 token 直接存取 Protected Resource。</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*etZk9o-phnwO4OhrPIxYEQ.png" alt="img"><strong>Client Credentials Grant</strong></p>
+<p>以 Authorization Server 角度而言，client 主要分為兩種 confidential 與 public，就字面上意義 confidential 屬於可以直接被信任的、public 屬於不被信任的存取者。不被信任的 client 取得 Grant 的方式建議為：Authorization Grant、Implicit 的方式 ; 若是屬於信任的 Client 建議為：Resource Owner Password Credentials Grant、Client Credentials。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*cQXlaXecHX20SgikrFq8WQ.png" alt="img"></p>
+<blockquote>
+<ol>
+<li>public 指的是 Resource Owner 是屬於一般使用者而非內部開發者，因此在進行取得憑證的過程應該使用較高的安全性的方式。</li>
+<li>confidential 指的是 Resource Owner 是屬於內部開發者的，因為服務間會互相調用，因為是可信任的服務，因此用的憑證相對的比外部得來的寬鬆。</li>
+</ol>
+</blockquote>
+<h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><p>OAuth 2 並不是專屬給第三方程式存取認證模式，它本身是一種框架，適用任何的認證情況。事實上在 IETF RFC 文件中，針對不同的 client 有不同強度的認證方法。市面上主要廣泛運用在存取第三方程式通常都以 Authorization Grant 的方式進行存取。然而 OAuth 2 其實也可以運用在內部 Service 自己存取時的場景！</p>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a><strong>參考資料</strong></h2><p>[1] Hardt, Dick. RFC 6749: The OAuth 2.0 Authorization Framework. Internet Engineering Task Force (IETF) 10 (2012): 2070–1721.</p>
+
+        </div>
+        <footer>
+            <p class="meta">
+                <span class="byline author vcard">Posted by <span class="fn">John Doe</span></span>
+                <time datetime="2020-12-20T11:55:38.000Z" data-updated="true">Sun Dec 20 2020</time>
+                
+            </p>
+            <div class="sharing">
+    
+        <a class="twitter-share-button"
+           target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=%E5%BE%9E%20RFC%20%E8%A6%8F%E6%A0%BC%E6%9B%B8%E8%A7%80%E9%BB%9E%E8%A7%A3%E6%9E%90%20OAuth%202.0">
+            Tweet
+        </a>
+    
+</div>
+
+            <p class="meta">
+                
+                <a class="basic-alignment left" href="/" title="Previous Post: Golang Goroutine Concurrency-多執行緒必要知道的五件事情">« Golang Goroutine Concurrency-多執行緒必要知道的五件事情</a>
+                
+
+                
+                <a class="basic-alignment right" href="/" title="Previous Post: Golang go mod 入門">Golang go mod 入門 »</a>
+                
+            </p>
+        </footer>
+    </article>
+
+    
+
+</div>
+
+<aside class="sidebar">
+    <section class="odd">
+    <h1>Recent Posts</h1>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/04/18/nosql_database_selection_guild/">淺談-NoSQL資料庫怎麼選？</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/03/07/blockchain_security_problem/">區塊鏈物聯網架構 解決哪些安全性議題？</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/21/golang_goroutine/">Golang Goroutine Concurrency-多執行緒必要知道的五件事情</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/20/rfc_oauth%202.0/">從 RFC 規格書觀點解析 OAuth 2.0</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/06/Golang_go_mod/">Golang go mod 入門</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/25/Overview_The_WebSocket_Mechanism/">Overview The WebSocket Mechanism</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/19/How_do_AppRTC_work_in_WebRTC_mechanism/">How do AppRTC work in WebRTC mechanism ?</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/11/what_is_Broker/">Broker 到底是什麼？</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/04/use_TorchServe_deploy_Model/">使用 TorchServe 部署 Model</a></li></ul>
+</section><section class="even">
+    <h1>GitHub Repos</h1>
+    <ul id="gh_repos">
+        <li class="loading">Status updating&#8230;</li>
+    </ul>
+
+    <a target="_blank" rel="noopener" href="https://github.com/your_github">@your_github</a> on GitHub
+
+    <script>
+        $(document).ready(function(){
+            const options = {
+                user: 'your_github',
+                count: 0,
+                skip_forks: true,
+                target: '#gh_repos'
+            }
+
+            function escapeHtml(str) {
+                return $('<div/>').text(str).html();
+            }
+
+            function render(target, repos){
+                let i, fragment = '', t = $(target)[0];
+
+                for(i = 0; i < repos.length; i++) {
+                    fragment += '<li><a href="'+repos[i].html_url+'">'+repos[i].name+'</a><p>'+escapeHtml(repos[i].description||'')+'</p></li>';
+                }
+                t.innerHTML = fragment;
+            }
+
+            $.ajax({
+                url: "https://api.github.com/users/"+options.user+"/repos?sort=pushed&callback=?",
+                dataType: 'jsonp',
+                error: function (err) {
+                    $(options.target + ' li.loading').addClass('error').text("Error loading feed");
+                },
+                success: function(data) {
+                    var repos = [];
+                    if (!data || !data.data) { return; }
+                    for (var i = 0; i < data.data.length; i++) {
+                        if (options.skip_forks && data.data[i].fork) { continue; }
+                        repos.push(data.data[i]);
+                    }
+                    if (options.count) { repos.splice(options.count); }
+                    render(options.target, repos);
+                }
+            });
+        });
+    </script>
+</section>
+</aside>
+
+    </div>
+</div>
+
+<footer role="contentinfo">
+    <p>
+        Copyright © 2021 - John Doe -
+        <span class="credit">Generated using <a target="_blank" rel="noopener" href="https://github.com/jbreckmckye/hexo-theme-octo">Octo theme</a> for <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></span>
+    </p>
+</footer>
+
+
+
+</body>
+</html>

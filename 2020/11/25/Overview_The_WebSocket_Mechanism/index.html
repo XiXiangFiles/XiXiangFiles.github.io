@@ -1,0 +1,253 @@
+
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7" lang="zh-tw"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8" lang="zh-tw"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="zh-tw"><!--<![endif]-->
+<head>
+    <meta charset="UTF-8">
+    <title>Overview The WebSocket Mechanism</title>
+
+    <meta name="author" content="John Doe">
+
+    <link rel="shortcut icon" href="/images/favicon.png">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+    <link rel="canonical" href="http://example.com/2020/11/25/Overview_The_WebSocket_Mechanism/">
+
+    
+        <link rel="alternate" href="/atom.xml" type="application/atom+xml">
+    
+
+    
+
+    
+<script src="/js/modernizr-2.0.js"></script>
+
+
+    
+<script src="/js/jquery-1.9.1.js"></script>
+
+
+    
+    <script>window.twttr = (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0],
+                t = window.twttr || {};
+            if (d.getElementById(id)) return t;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://platform.twitter.com/widgets.js";
+            fjs.parentNode.insertBefore(js, fjs);
+
+            t._e = [];
+            t.ready = function(f) {
+                t._e.push(f);
+            };
+
+            return t;
+        }(document, "script", "twitter-wjs"));</script>
+
+    
+    <link rel="me" href="https://twitter.com/your_twitter">
+    
+
+
+
+    
+<script src="/js/octo.js"></script>
+
+
+    
+<link rel="stylesheet" href="/css/octo.css">
+
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet"
+          type="text/css">
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet"
+          type="text/css">
+
+    
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+
+<header role="banner">
+    <hgroup>
+        <h1><a href="/">Jerry Wang Blog</a></h1>
+        
+    </hgroup>
+</header>
+
+<nav role="navigation">
+    
+        <ul class="subscription" data-subscription="rss">
+            <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+        </ul>
+    
+
+    <form action="https://google.com/search" method="get">
+        <fieldset role="search">
+            <input type="hidden" name="q" value="site:http://example.com/">
+            <input class="search" type="text" name="q" results="0" placeholder="Search">
+        </fieldset>
+    </form>
+
+    <ul class="main-navigation">
+        
+            <li><a href="/">Blog</a></li>
+        
+            <li><a href="/archives">Archives</a></li>
+        
+    </ul>
+</nav>
+
+
+<div id="main">
+    <div id="content">
+        <div>
+    <article class="hentry" role="article">
+        <header>
+            <h1 class="entry-title">Overview The WebSocket Mechanism</h1>
+            <p class="meta">
+                <time datetime="2020-11-25T11:55:38.000Z" data-updated="true">Wed Nov 25 2020</time>
+            </p>
+        </header>
+        <div class="entry-content">
+            <p>This article introduces What’s the Websocket and how it works.</p>
+<p>WebSocket is a popular tool in HTTP 1.1, that realized full-duplex on HTTP model. <strong>It upgrades HTTP 1.1 to let the TCP channel still open</strong> until the request or response side closes the communication channel.</p>
+<p>In the past without the WebSocket age, there are two mechanisms to achieve duplex. One is “Long Polling” the other one is “HTTP stream”, they manipulate the request channel time to simulate duplex[1]. On the other worlds, that just don’t close HTTP Request. But it have a drawback that caused server big loading but WebSocket can solve these problem</p>
+<blockquote>
+<p>Detail in attachment about “ Long Polling” and “ HTTP Stream”</p>
+</blockquote>
+<h2 id="The-Design-of-Websockets"><a href="#The-Design-of-Websockets" class="headerlink" title="The Design of Websockets"></a><strong>The Design of Websockets</strong></h2><p>The WebSocket build connection have two steps. Client should start TCP connection and then use HTTP GET to verify HTTP upgrade process <strong>(Websocket HandShake)</strong> before staring transmit data.</p>
+<p><img src="https://cdn-images-1.medium.com/max/720/1*_vUlATmL9eAcy5VzsjUjng.png" alt="img"></p>
+<h2 id="WebSocket-handshake"><a href="#WebSocket-handshake" class="headerlink" title="WebSocket handshake"></a>WebSocket handshake</h2><p>WebScoket handshake base on HTTP 1.1 to do this. The main purpose is client side tells HTTP Server we want to upgrade to WebSocket.(Figure WebSocket handshake sequence diagram)</p>
+<p><img src="https://cdn-images-1.medium.com/max/720/1*lFsewXqqMdpeSagStXFuow.png" alt="img">WebSocket handshake sequence diagram</p>
+<p><strong>Something Important:</strong><br>● Sec-WebSocket-key, Sec-Websocket-Accept:<br>The purpose is that proves the handshake was received<br> \1. Sec-Websocket-key is a UUID that encoded by Base64.<br> \2. Sec-Websocket-Accept is the string that Sec-Websocket-key concatenates with decode of Sec-Websocket-key. The string will encode SHA-1 and encode Base64 before send back it.</p>
+<p><img src="https://cdn-images-1.medium.com/max/720/1*r18KMh7e4WKNc_8hlCuL1g.png" alt="img">Sec-WebSocket-key, Sec-Websocket-Accept activity diagram</p>
+<iframe width="700" height="250" src="/media/d73c0bd9ae0f86b8345db02c60eeaf29" data-media-id="d73c0bd9ae0f86b8345db02c60eeaf29" data-thumbnail="https://i.embed.ly/1/image?url=https%3A%2F%2Fgithub.githubassets.com%2Fimages%2Fmodules%2Fgists%2Fgist-og-image.png&amp;key=a19fcc184b9711e1b4764040d3dc5c07" allowfullscreen="" frameborder="0"></iframe>
+
+<p>● Origin:<br>The Origin header field is used to protect against <strong>unauthorized cross-origin</strong> use of a WebSocket server by scripts using the WebSocket API in a web browser.<br><strong>example:</strong> if code downloaded from <a target="_blank" rel="noopener" href="http://www.example.com/">www.example.com</a> attempts to establish a connection to ww2.example.com, the value of the header field would be “<a target="_blank" rel="noopener" href="http://www.example.com&quot;/">http://www.example.com&quot;</a></p>
+<p>● Sec-WebSocket-Version:<br>The value of this header field MUST be <strong>13</strong>.</p>
+<h2 id="Three-Control-Frame-Ping-Pong-Close"><a href="#Three-Control-Frame-Ping-Pong-Close" class="headerlink" title="Three Control Frame: Ping, Pong, Close"></a>Three Control Frame: Ping, Pong, Close</h2><p><strong>●</strong> Ping**<br>**Upon receipt of a Ping frame, an endpoint MUST send a <strong>Pong frame</strong> in response, unless it already received a Close frame.</p>
+<p><strong>●</strong> Pong (not only reply ping but *<strong>it can serve as a unidirectional heartbeat*</strong>)<br>If an endpoint receives not only one ping, that <strong>May</strong> elect the most recent ping to reply a Pong.</p>
+<p><img src="https://cdn-images-1.medium.com/max/720/1*WLwBU5-dSm9baYOe0QsbgA.png" alt="img">Ping and Pong example</p>
+<p><strong>●</strong> Close<br>If the endpoint receives <strong>a close control frame,</strong> it MUST send a Close frame in response.</p>
+<blockquote>
+<p>Sometimes endpoint receive a close frame, but some data still transmit. In that situation, endpoint can send a close frame after this transmit.</p>
+</blockquote>
+<p><img src="https://cdn-images-1.medium.com/max/720/1*-tUT8eVHh8Kg3eEmomlfcg.png" alt="img">when receive close control frame, endpoint can done it before send close back</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h2><p>WebSocket is so popular on Web event implementation but seldom do people realize how it works. In this article, have some essential knowledge to help people develop the WebSocket Application. Especially WebSocket handshake, so many modules should set these arguments.</p>
+<p><strong>Attachment:<br>●</strong> <em>Long Polling:<br>When a client sends a request but the server does not close this connection a period. if it is closed, the client will still resend a request to do it again.</em></p>
+<p>● <em>HTTP Stream:<br>When the client sends a request but the server never closes this connection.</em></p>
+<blockquote>
+<p><em>In both of them, the Server response still has an HTTP header and no mechanism to manage the endpoint connection status.</em></p>
+</blockquote>
+<p>**Reference<br>**[1]Loreto, S., et al. “RFC 6202-Known Issues and Best Practices for the Use of Long Polling and Streaming in Bidirectional HTTP.” <em>IETF, Duben</em> (2011).<br>[2] Skvorc, Dejan, Matija Horvat, and Sinisa Srbljic. “Performance evaluation of Websocket protocol for implementation of full-duplex web streams.” <em>2014 37th International Convention on Information and Communication Technology, Electronics and Microelectronics (MIPRO)</em>. IEEE, 2014.<br>[3]Fette, Ian, and Alexey Melnikov. “Rfc 6455: The websocket protocol.” <em>IETF, December</em> (2011).</p>
+
+        </div>
+        <footer>
+            <p class="meta">
+                <span class="byline author vcard">Posted by <span class="fn">John Doe</span></span>
+                <time datetime="2020-11-25T11:55:38.000Z" data-updated="true">Wed Nov 25 2020</time>
+                
+            </p>
+            <div class="sharing">
+    
+        <a class="twitter-share-button"
+           target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=Overview%20The%20WebSocket%20Mechanism">
+            Tweet
+        </a>
+    
+</div>
+
+            <p class="meta">
+                
+                <a class="basic-alignment left" href="/" title="Previous Post: Golang go mod 入門">« Golang go mod 入門</a>
+                
+
+                
+                <a class="basic-alignment right" href="/" title="Previous Post: How do AppRTC work in WebRTC mechanism ?">How do AppRTC work in WebRTC mechanism ? »</a>
+                
+            </p>
+        </footer>
+    </article>
+
+    
+
+</div>
+
+<aside class="sidebar">
+    <section class="odd">
+    <h1>Recent Posts</h1>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/04/18/nosql_database_selection_guild/">淺談-NoSQL資料庫怎麼選？</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/03/07/blockchain_security_problem/">區塊鏈物聯網架構 解決哪些安全性議題？</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/21/golang_goroutine/">Golang Goroutine Concurrency-多執行緒必要知道的五件事情</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/20/rfc_oauth%202.0/">從 RFC 規格書觀點解析 OAuth 2.0</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/06/Golang_go_mod/">Golang go mod 入門</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/25/Overview_The_WebSocket_Mechanism/">Overview The WebSocket Mechanism</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/19/How_do_AppRTC_work_in_WebRTC_mechanism/">How do AppRTC work in WebRTC mechanism ?</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/11/what_is_Broker/">Broker 到底是什麼？</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/04/use_TorchServe_deploy_Model/">使用 TorchServe 部署 Model</a></li></ul>
+</section><section class="even">
+    <h1>GitHub Repos</h1>
+    <ul id="gh_repos">
+        <li class="loading">Status updating&#8230;</li>
+    </ul>
+
+    <a target="_blank" rel="noopener" href="https://github.com/your_github">@your_github</a> on GitHub
+
+    <script>
+        $(document).ready(function(){
+            const options = {
+                user: 'your_github',
+                count: 0,
+                skip_forks: true,
+                target: '#gh_repos'
+            }
+
+            function escapeHtml(str) {
+                return $('<div/>').text(str).html();
+            }
+
+            function render(target, repos){
+                let i, fragment = '', t = $(target)[0];
+
+                for(i = 0; i < repos.length; i++) {
+                    fragment += '<li><a href="'+repos[i].html_url+'">'+repos[i].name+'</a><p>'+escapeHtml(repos[i].description||'')+'</p></li>';
+                }
+                t.innerHTML = fragment;
+            }
+
+            $.ajax({
+                url: "https://api.github.com/users/"+options.user+"/repos?sort=pushed&callback=?",
+                dataType: 'jsonp',
+                error: function (err) {
+                    $(options.target + ' li.loading').addClass('error').text("Error loading feed");
+                },
+                success: function(data) {
+                    var repos = [];
+                    if (!data || !data.data) { return; }
+                    for (var i = 0; i < data.data.length; i++) {
+                        if (options.skip_forks && data.data[i].fork) { continue; }
+                        repos.push(data.data[i]);
+                    }
+                    if (options.count) { repos.splice(options.count); }
+                    render(options.target, repos);
+                }
+            });
+        });
+    </script>
+</section>
+</aside>
+
+    </div>
+</div>
+
+<footer role="contentinfo">
+    <p>
+        Copyright © 2021 - John Doe -
+        <span class="credit">Generated using <a target="_blank" rel="noopener" href="https://github.com/jbreckmckye/hexo-theme-octo">Octo theme</a> for <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></span>
+    </p>
+</footer>
+
+
+
+</body>
+</html>

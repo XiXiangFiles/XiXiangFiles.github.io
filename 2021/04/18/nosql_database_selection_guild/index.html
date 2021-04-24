@@ -1,0 +1,346 @@
+
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7" lang="zh-tw"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8" lang="zh-tw"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="zh-tw"><!--<![endif]-->
+<head>
+    <meta charset="UTF-8">
+    <title>淺談-NoSQL資料庫怎麼選？</title>
+
+    <meta name="author" content="John Doe">
+
+    <link rel="shortcut icon" href="/images/favicon.png">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+    <link rel="canonical" href="http://example.com/2021/04/18/nosql_database_selection_guild/">
+
+    
+        <link rel="alternate" href="/atom.xml" type="application/atom+xml">
+    
+
+    
+
+    
+<script src="/js/modernizr-2.0.js"></script>
+
+
+    
+<script src="/js/jquery-1.9.1.js"></script>
+
+
+    
+    <script>window.twttr = (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0],
+                t = window.twttr || {};
+            if (d.getElementById(id)) return t;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://platform.twitter.com/widgets.js";
+            fjs.parentNode.insertBefore(js, fjs);
+
+            t._e = [];
+            t.ready = function(f) {
+                t._e.push(f);
+            };
+
+            return t;
+        }(document, "script", "twitter-wjs"));</script>
+
+    
+    <link rel="me" href="https://twitter.com/your_twitter">
+    
+
+
+
+    
+<script src="/js/octo.js"></script>
+
+
+    
+<link rel="stylesheet" href="/css/octo.css">
+
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet"
+          type="text/css">
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet"
+          type="text/css">
+
+    
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+
+<header role="banner">
+    <hgroup>
+        <h1><a href="/">Jerry Wang Blog</a></h1>
+        
+    </hgroup>
+</header>
+
+<nav role="navigation">
+    
+        <ul class="subscription" data-subscription="rss">
+            <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+        </ul>
+    
+
+    <form action="https://google.com/search" method="get">
+        <fieldset role="search">
+            <input type="hidden" name="q" value="site:http://example.com/">
+            <input class="search" type="text" name="q" results="0" placeholder="Search">
+        </fieldset>
+    </form>
+
+    <ul class="main-navigation">
+        
+            <li><a href="/">Blog</a></li>
+        
+            <li><a href="/archives">Archives</a></li>
+        
+    </ul>
+</nav>
+
+
+<div id="main">
+    <div id="content">
+        <div>
+    <article class="hentry" role="article">
+        <header>
+            <h1 class="entry-title">淺談-NoSQL資料庫怎麼選？</h1>
+            <p class="meta">
+                <time datetime="2021-04-18T11:55:38.000Z" data-updated="true">Sun Apr 18 2021</time>
+            </p>
+        </header>
+        <div class="entry-content">
+            <p>NoSQL是目前在雲端服務很常使用的一種型態的資料庫，僅具備BASE原則。然而在市場上有許多種類的NoSQL，如MongoDB、Redis、HBase…等，本文章則從Scalability、Sharding、Replication的角度切入，並同時帶入CAP理論進行分類。</p>
+<h2 id="NoSQL-v-s-RDBMS"><a href="#NoSQL-v-s-RDBMS" class="headerlink" title="NoSQL v.s RDBMS"></a>NoSQL v.s RDBMS</h2><p>**[關聯式資料庫(RDBMS)]:<br><em><em>是目前很常用的資料庫，完全遵守ACID原則，在任何情況下(A)<em>都可保持每個Transaction不成功則roll back</em>、</em>(C)資料一致性<em>、</em>(I)讀寫不互相干擾*、</em>(D)數據永久性*。</p>
+<p>然而它只支援垂之擴充，若要應用在大量的資料的時候，就只能透過硬體的升級，如cpu 升級、使用NAS、SAN擴充硬碟資源等。</p>
+<blockquote>
+<p>A: Atomicity, C: consistency, I: Isolation, D: duration</p>
+</blockquote>
+<p>**[非關聯式資料庫(NoSQL)]:<br>*<em>是目前在雲端服務很常使用的一種型態的資料庫。僅具備BASE原則，(BA)<em>只保證一定的可用性</em>，</em>(S)不保證在****同時有讀寫*<em>*<em>時資料是一致的</em>，*(E)資料最終一致的特性</em>。</p>
+<p><strong>但具備水平擴充、垂直擴充</strong>。換句話說只要同步的增加主機數量，NoSQL能力就會成比例上升，或者直接升級單一資料庫的效能能達到效果。</p>
+<blockquote>
+<p>BA: Basically Available, S: Soft-state, E: Eventually consistent.</p>
+</blockquote>
+<p><strong>[NoSQL v.s RDBMS 使用場景]:</strong></p>
+<ul>
+<li>RDBMS因具備ACID特性，若需要確保資料在任何情況下都穩定的場景就比較推薦。</li>
+<li>NoSQL比較適合用在雲端服務上，或者對於資料的穩定性不這麼高的使用場景。因為具備水平擴充，因此不會有single failed的問題、擴充的成本相對垂直擴充低。</li>
+</ul>
+<h2 id="1-NoSQL-分類-以資料型態分類"><a href="#1-NoSQL-分類-以資料型態分類" class="headerlink" title="1. [NoSQL 分類]- 以資料型態分類"></a>1. [NoSQL 分類]- 以資料型態分類</h2><p>主要分為三種，key-value、wide-column、documents的資料型態:</p>
+<ul>
+<li>key-value:<br>在做簡單的Query會比較快，但如果是複雜的Query就不怎麼方便。**<br>**ex: Redis DB</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*2nm_XYHjAcAcNlQkv8_IPg.png" alt="img"></p>
+<ul>
+<li>document:<br>也是一種key-value store，只是限制value 的結構為semi-structure，像是JSON等。ex: MongoDB</li>
+<li>wide-column:<br>透過多個raw、column進行存取，將要的資料拆解成小資料，然後進行組合。最後可以透過column key 或者row key 進行關聯搜索。<strong>好處是有效的壓縮資料以及取用同一等級的資料集相當方便。</strong></li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*tXVk6ZKMMeKapkeEDUWn1Q.png" alt="img"></p>
+<h2 id="2-NoSQL-分類-CAP-Consistency-Availability-Partition-Tolerance"><a href="#2-NoSQL-分類-CAP-Consistency-Availability-Partition-Tolerance" class="headerlink" title="2. [NoSQL 分類]- CAP (Consistency, Availability, Partition Tolerance)"></a>2. [NoSQL 分類]- CAP (Consistency, Availability, Partition Tolerance)</h2><p>Consistency: 讀寫都會遵循Atomicity原則，Availability: 在non-failing node的時候 Client 讀、寫都能正常運行，Partition Tolerance: 在cluster 狀態下，node 之間的網路不穩的狀態下，還能夠維持availability。</p>
+<p>從上述CAP中，一般資料庫不可能同時達到，因為在Available的情況下，Consistency與Partition Tolerance是互相矛盾的。(<strong>cluster node不能互相溝通時，不能保證資料的一致性)，</strong>因此大致的分類有 AP、CA、CP:</p>
+<ul>
+<li>AP: 不管是在 single-node 或者是 cluster，只有要 node 可用就能持續運作</li>
+<li>CA: 在沒有任何的例外下，都是可用並保證資料的一致性。</li>
+<li>CP: 在 node 之前不穩定的時候不接受 request。</li>
+</ul>
+<h2 id="3-NoSQL-分類-Sharding"><a href="#3-NoSQL-分類-Sharding" class="headerlink" title="3. [NoSQL 分類]- Sharding"></a>3. [NoSQL 分類]- Sharding</h2><p>傳統的RDBMS依賴 shard-disk 架構增加data repository的容量，NoSQL則是可透過 Sharding 技術做到。主要有分三種: Ranged Sharding、Hash Sharding、Entity group Sharding方式。</p>
+<ul>
+<li>Ranged Sharding:<br>主要是利用編號的方式進行分群，如下圖當x&gt;20的時候，分配給shard C。</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*7fbSqwsNoqnUPY9lifBkIQ.png" alt="img"></p>
+<ul>
+<li>Hash Sharding:<br>透過 Hash 的方式進行分群，分佈起來會比較均勻。Ranged Sharding 則有可能會有分佈不均的問題。<br>***-&gt; Consistent Hashing:*** 使得每一個chunk 存資料的機率都一樣。</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*fycEuel6lkpVDu3fWkZcog.png" alt="img"></p>
+<ul>
+<li>Entity Group Sharding:<br>將有關聯的欄位做Sharding，這樣一來在搜尋上、資料一致性上都會來的更有保障。</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*Zf_8R4Tpotb7Vi8770wHVw.png" alt="img"></p>
+<h2 id="4-NoSQL-分類-Replication"><a href="#4-NoSQL-分類-Replication" class="headerlink" title="4. [NoSQL 分類]- Replication"></a>4. [NoSQL 分類]- Replication</h2><p>在大型應用場景域中，幾乎會遇到各種裝置在已知例外、未知例外的情況下導致節點失靈的問題，然而Replication就是屬於用於解決問題的解法。透過將資料備份的方式使得即使失靈，也不影響運作。</p>
+<ul>
+<li>Master and Slave: 當client將資料注入Master 資料庫，然而Master 會自動透過Replication，將slave更新。</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*VpbT3upW50EsenRQyzuikA.png" alt="img"></p>
+<ul>
+<li>Multi-master Replication: 類似Master and Slave 的方式，Master 主機同時也是slave角色，當其中一台Master 更新的時候，其他Slave也會同時更新。</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*yp7NDCcsllUQ3YI91kC7Mg.png" alt="img"></p>
+<p>Replication 的動作可分成 Eager (sync)、Lazy(async)：</p>
+<ul>
+<li>Eager Replication: 在同步下，當資料注入的時候，全部的node 都會具備相同的資料，但缺點是在效能上必須有所犧牲。</li>
+<li>Lazy Replication: 在非同步下則是透過被動的方式，在一段時間後才會同步完成。</li>
+</ul>
+<h2 id="5-NoSQL-比較表"><a href="#5-NoSQL-比較表" class="headerlink" title="5. [NoSQL 比較表]"></a>5. [NoSQL 比較表]</h2><table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>MongoDB</th>
+<th>HBase</th>
+<th>Cassandra</th>
+<th>Riak</th>
+<th>Redis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Data Structure</strong></td>
+<td>Document</td>
+<td>Wide-column</td>
+<td>Wide-column</td>
+<td>Key-value</td>
+<td>Key-value</td>
+</tr>
+<tr>
+<td><strong>CAP</strong></td>
+<td>CP</td>
+<td>CP</td>
+<td>AP</td>
+<td>AP</td>
+<td>CP</td>
+</tr>
+<tr>
+<td><strong>Disk latency per get by row key</strong></td>
+<td>Several disk seeks</td>
+<td>Several disk seeks</td>
+<td>Several disk seeks</td>
+<td>One disk seeks</td>
+<td>Memory</td>
+</tr>
+<tr>
+<td><strong>Write performance</strong></td>
+<td>High(I/O)</td>
+<td>High(I/O)</td>
+<td>High(I/O)</td>
+<td>High(I/O)</td>
+<td>super High (Memory)</td>
+</tr>
+<tr>
+<td><strong>Sharding</strong></td>
+<td>Hash、range-based</td>
+<td>range-based</td>
+<td>consistent hashing</td>
+<td>consistent hashing</td>
+<td>hash</td>
+</tr>
+<tr>
+<td><strong>Replication</strong></td>
+<td>Master-slave,snyc configurable</td>
+<td>File-system-level</td>
+<td>consistent hashing</td>
+<td>consistent hashing</td>
+<td>Async master-slave</td>
+</tr>
+</tbody></table>
+<h2 id="6-常見資料庫推薦與適合場域"><a href="#6-常見資料庫推薦與適合場域" class="headerlink" title="6. 常見資料庫推薦與適合場域"></a>6. 常見資料庫推薦與適合場域</h2><p>下圖為文獻中的分類表[1]，給出不同的需求而所適用的資料庫。從Query 的角度分類，[(左)搜尋速度快、(右)複雜的搜尋]，進而對於抓取資料的大小、容量(volume)進行分類，最後則是以資料庫的特性進行分類。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*uFd9OjQM-Mbrp_JVb0TBgw.png" alt="img"></p>
+<blockquote>
+<p>專有名詞:<br>Unbounded: 指的是在分散式架構中，可搜尋的容量為無限<br>HDD-Size: 之的是在single node 情況下，可搜尋的容量為硬碟容量<br>Ad-hoc: 即時查詢，如sql中的 select ..from aDB where [condictions..]<br>Analytics: 只的是在query 的時候可具備資料分析的能力<br>OLTP((online transaction processing): 網路交易process</p>
+</blockquote>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><p>[1] Gessert, Felix, et al. “NoSQL database systems: a survey and decision guidance.” <em>Computer Science-Research and Development</em> 32.3 (2017): 353–365.<br>[2] <a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/core/ranged-sharding/">https://docs.mongodb.com/manual/core/ranged-sharding/</a><br>[3] <a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/core/hashed-sharding/">https://docs.mongodb.com/manual/core/hashed-sharding/</a><br>[4] <a target="_blank" rel="noopener" href="https://medium.com/@jeeyoungk/how-sharding-works-b4dec46b3f6">https://medium.com/@jeeyoungk/how-sharding-works-b4dec46b3f6</a><br>[5] <a target="_blank" rel="noopener" href="https://galeracluster.com/library/documentation/tech-desc-introduction.html">https://galeracluster.com/library/documentation/tech-desc-introduction.html</a><br>[6] <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/2460954/what-is-ad-hoc-query">https://stackoverflow.com/questions/2460954/what-is-ad-hoc-query</a></p>
+
+        </div>
+        <footer>
+            <p class="meta">
+                <span class="byline author vcard">Posted by <span class="fn">John Doe</span></span>
+                <time datetime="2021-04-18T11:55:38.000Z" data-updated="true">Sun Apr 18 2021</time>
+                
+            </p>
+            <div class="sharing">
+    
+        <a class="twitter-share-button"
+           target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=%E6%B7%BA%E8%AB%87-NoSQL%E8%B3%87%E6%96%99%E5%BA%AB%E6%80%8E%E9%BA%BC%E9%81%B8%EF%BC%9F">
+            Tweet
+        </a>
+    
+</div>
+
+            <p class="meta">
+                
+
+                
+                <a class="basic-alignment right" href="/" title="Previous Post: 區塊鏈物聯網架構 解決哪些安全性議題？">區塊鏈物聯網架構 解決哪些安全性議題？ »</a>
+                
+            </p>
+        </footer>
+    </article>
+
+    
+
+</div>
+
+<aside class="sidebar">
+    <section class="odd">
+    <h1>Recent Posts</h1>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/04/18/nosql_database_selection_guild/">淺談-NoSQL資料庫怎麼選？</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/03/07/blockchain_security_problem/">區塊鏈物聯網架構 解決哪些安全性議題？</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/21/golang_goroutine/">Golang Goroutine Concurrency-多執行緒必要知道的五件事情</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/20/rfc_oauth%202.0/">從 RFC 規格書觀點解析 OAuth 2.0</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/06/Golang_go_mod/">Golang go mod 入門</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/25/Overview_The_WebSocket_Mechanism/">Overview The WebSocket Mechanism</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/19/How_do_AppRTC_work_in_WebRTC_mechanism/">How do AppRTC work in WebRTC mechanism ?</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/11/what_is_Broker/">Broker 到底是什麼？</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/04/use_TorchServe_deploy_Model/">使用 TorchServe 部署 Model</a></li></ul>
+</section><section class="even">
+    <h1>GitHub Repos</h1>
+    <ul id="gh_repos">
+        <li class="loading">Status updating&#8230;</li>
+    </ul>
+
+    <a target="_blank" rel="noopener" href="https://github.com/your_github">@your_github</a> on GitHub
+
+    <script>
+        $(document).ready(function(){
+            const options = {
+                user: 'your_github',
+                count: 0,
+                skip_forks: true,
+                target: '#gh_repos'
+            }
+
+            function escapeHtml(str) {
+                return $('<div/>').text(str).html();
+            }
+
+            function render(target, repos){
+                let i, fragment = '', t = $(target)[0];
+
+                for(i = 0; i < repos.length; i++) {
+                    fragment += '<li><a href="'+repos[i].html_url+'">'+repos[i].name+'</a><p>'+escapeHtml(repos[i].description||'')+'</p></li>';
+                }
+                t.innerHTML = fragment;
+            }
+
+            $.ajax({
+                url: "https://api.github.com/users/"+options.user+"/repos?sort=pushed&callback=?",
+                dataType: 'jsonp',
+                error: function (err) {
+                    $(options.target + ' li.loading').addClass('error').text("Error loading feed");
+                },
+                success: function(data) {
+                    var repos = [];
+                    if (!data || !data.data) { return; }
+                    for (var i = 0; i < data.data.length; i++) {
+                        if (options.skip_forks && data.data[i].fork) { continue; }
+                        repos.push(data.data[i]);
+                    }
+                    if (options.count) { repos.splice(options.count); }
+                    render(options.target, repos);
+                }
+            });
+        });
+    </script>
+</section>
+</aside>
+
+    </div>
+</div>
+
+<footer role="contentinfo">
+    <p>
+        Copyright © 2021 - John Doe -
+        <span class="credit">Generated using <a target="_blank" rel="noopener" href="https://github.com/jbreckmckye/hexo-theme-octo">Octo theme</a> for <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></span>
+    </p>
+</footer>
+
+
+
+</body>
+</html>

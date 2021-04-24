@@ -1,0 +1,446 @@
+
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7" lang="zh-tw"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8" lang="zh-tw"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="zh-tw"><!--<![endif]-->
+<head>
+    <meta charset="UTF-8">
+    <title>區塊鏈物聯網架構 解決哪些安全性議題？</title>
+
+    <meta name="author" content="John Doe">
+
+    <link rel="shortcut icon" href="/images/favicon.png">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+    <link rel="canonical" href="http://example.com/2021/03/07/blockchain_security_problem/">
+
+    
+        <link rel="alternate" href="/atom.xml" type="application/atom+xml">
+    
+
+    
+
+    
+<script src="/js/modernizr-2.0.js"></script>
+
+
+    
+<script src="/js/jquery-1.9.1.js"></script>
+
+
+    
+    <script>window.twttr = (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0],
+                t = window.twttr || {};
+            if (d.getElementById(id)) return t;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://platform.twitter.com/widgets.js";
+            fjs.parentNode.insertBefore(js, fjs);
+
+            t._e = [];
+            t.ready = function(f) {
+                t._e.push(f);
+            };
+
+            return t;
+        }(document, "script", "twitter-wjs"));</script>
+
+    
+    <link rel="me" href="https://twitter.com/your_twitter">
+    
+
+
+
+    
+<script src="/js/octo.js"></script>
+
+
+    
+<link rel="stylesheet" href="/css/octo.css">
+
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet"
+          type="text/css">
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet"
+          type="text/css">
+
+    
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+
+<header role="banner">
+    <hgroup>
+        <h1><a href="/">Jerry Wang Blog</a></h1>
+        
+    </hgroup>
+</header>
+
+<nav role="navigation">
+    
+        <ul class="subscription" data-subscription="rss">
+            <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+        </ul>
+    
+
+    <form action="https://google.com/search" method="get">
+        <fieldset role="search">
+            <input type="hidden" name="q" value="site:http://example.com/">
+            <input class="search" type="text" name="q" results="0" placeholder="Search">
+        </fieldset>
+    </form>
+
+    <ul class="main-navigation">
+        
+            <li><a href="/">Blog</a></li>
+        
+            <li><a href="/archives">Archives</a></li>
+        
+    </ul>
+</nav>
+
+
+<div id="main">
+    <div id="content">
+        <div>
+    <article class="hentry" role="article">
+        <header>
+            <h1 class="entry-title">區塊鏈物聯網架構 解決哪些安全性議題？</h1>
+            <p class="meta">
+                <time datetime="2021-03-07T11:55:38.000Z" data-updated="true">Sun Mar 07 2021</time>
+            </p>
+        </header>
+        <div class="entry-content">
+            <p><strong>本篇會列舉出 IoT可能面對的安全性議題，並且闡述傳統和區塊鏈架構之間的差別與使用時機。</strong>*</p>
+<p>物聯網的興起已經是種趨勢，2022 年全球可能會有20.4 billion物聯網裝置，也因著區塊鏈技術的興起，解決許多傳統必須考慮的安全性議題。尤其在middleware layer、network layer 的攻擊。</p>
+<p>在過去物聯網裝置都是直接連上雲端裝置開始，漸漸的使用 fog架構因應同性質裝置的互連。而未來的使用場景即將是不同種類的裝置互連的使用場景。如圖1: Present IoT Architecture。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*mR74mEpkEnUECXDYlA1KNA.png" alt="img"></p>
+<p>在未來的使用場景，各類裝置間的互連的需求下，因此在安全性議題也日益重要。本篇將會探討近年提出的「區塊鏈應用於物聯網的架構」，是否可能為未來的主流架構。</p>
+<h2 id="IoT-架構面臨的安全性挑戰-如下圖2-Types-of-attacks-on-IoT）"><a href="#IoT-架構面臨的安全性挑戰-如下圖2-Types-of-attacks-on-IoT）" class="headerlink" title="IoT 架構面臨的安全性挑戰 (如下圖2: Types of attacks on IoT）"></a>IoT 架構面臨的安全性挑戰 (如下圖2: Types of attacks on IoT）</h2><p><img src="https://cdn-images-1.medium.com/max/800/1*GqnW3fWy7-syO7f60zcEvw.png" alt="img"></p>
+<ul>
+<li>Sensor layer: 指的是感測器層</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>編號</th>
+<th>攻擊手法</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Node Capturing</td>
+<td>透過惡意節點嘗試取、代控制既有的節點</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Malicious Code Injection Attack</td>
+<td>埋入惡意程式碼入記憶體，使得節點執行不該執行的或者企圖存取整個IoT系統</td>
+</tr>
+<tr>
+<td>3</td>
+<td>False Data Injection Attack</td>
+<td>注入錯的資料使裝置看起來像是故障一樣</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Side-Channel Attacks</td>
+<td>並非直接攻擊節點，而是攻擊環境。ex 電壓…</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Eavesdropping and Interference</td>
+<td>竊聽裝置的資料，如在autth階段、資料傳輸階段</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Sleep Deprivation Attacks</td>
+<td>企圖耗盡低功率裝置的電池,ex 使用無限迴圈</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Booting Attacks</td>
+<td>因為低功率裝置會有時常sleep、wakeup。而wakeup是相對比較脆弱的時候，因為大多數軟體都沒跑起來，可趁此時攻擊</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Network layer: Sensors 與 Middleware layer 中間的網路傳輸過程</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>編號</th>
+<th>攻擊手法</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Publishing Site Attack</td>
+<td>釣魚攻擊主要是使用假的網站企圖取得使用者的帳號密碼…等資料</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Access Attack</td>
+<td>未認證的使用者存取，目的在於偷取資料，而不是去破壞其網路</td>
+</tr>
+<tr>
+<td>3</td>
+<td>DDoS/DoS Attack</td>
+<td>使用大量的request不斷的發送server.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Data Transit Attack</td>
+<td>資料若存取在local端容易被搬移至其他地方</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Routing Attack</td>
+<td>透過重新導向，竊聽使用者的資料。</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>Middleware layer: 作為Middleware 與 Application 的之間溝通層</p>
+<table>
+<thead>
+<tr>
+<th>編號</th>
+<th>攻擊手法</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Main-in-the-middle Attack</td>
+<td>控制架構中所使用的中間軟體，ex: MQTT</td>
+</tr>
+<tr>
+<td>2</td>
+<td>SQL Injection Attack</td>
+<td>透過一些資料庫操作的關鍵字，間接的操作資料庫</td>
+</tr>
+<tr>
+<td>3</td>
+<td>DSignature Wrapping Attack</td>
+<td>破解其XML演算法，進而直接修改訊息</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Cloud Malware Injection</td>
+<td>藉由惡意程式碼，試圖在雲端啟同樣的惡意服務，以取得敏感的資料</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Flooding Attack in Cloud</td>
+<td>類似DDoS，使用無意義的request，攻擊其服務</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>Gateway: 作為network與sensor之間的橋樑</p>
+<table>
+<thead>
+<tr>
+<th>編號</th>
+<th>攻擊手法</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Secure on-boarding</td>
+<td>藉由Gateway去竊聽加密的key</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Extra Interfacces</td>
+<td>透過額外的存取界面入侵Gateway</td>
+</tr>
+<tr>
+<td>3</td>
+<td>End-to-End Encryption</td>
+<td>資料在傳輸的時候，GW需要解譯是哪種協定而需要再加解密，因此此時容易被竊取資料</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Firmware updates</td>
+<td>裝置韌體更新通常是透過GW下載，然而當下載錯誤的韌體則會使得所有裝置被控制</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<ul>
+<li>Application layer: 指的是應用場景<table>
+<thead>
+<tr>
+<th>編號</th>
+<th>攻擊手法</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Secure on-boarding</td>
+<td>藉由Gateway去竊聽加密的key</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Extra Interfacces</td>
+<td>透過額外的存取界面入侵Gateway</td>
+</tr>
+<tr>
+<td>3</td>
+<td>End-to-End Encryption</td>
+<td>資料在傳輸的時候，GW需要解譯是哪種協定而需要再加解密，因此此時容易被竊取資料</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Firmware updates</td>
+<td>裝置韌體更新通常是透過GW下載，然而當下載錯誤的韌體則會使得所有裝置被控制</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h2 id="IoT-傳統架構-Fog-Computing"><a href="#IoT-傳統架構-Fog-Computing" class="headerlink" title="IoT 傳統架構- Fog Computing"></a>IoT 傳統架構- Fog Computing</h2><p>Fog 的概念很像是Cloud，在這個架構中，所有的device 不會直接上雲，而是透過Fog再把資料傳上雲。而Fog主要提供的服務就是雲的服務，但只是為了管理方便多了Fog當中繼。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*r3ZkahkqSdRtiQkGX6KoqA.png" alt="img"></p>
+<p><strong>Pros:</strong></p>
+<ol>
+<li>防止資料被攔截、減少cloud 負擔(只將必要的資料上傳cloud)</li>
+<li>加速device處理的速度: 相對於cloud，fog更貼近device減少對device的延遲。</li>
+</ol>
+<p><strong>Cons:</strong></p>
+<ol>
+<li>集中化的架構: 集中化的架構會有 A single point of failure 問題</li>
+</ol>
+<h2 id="傳統架構應用於IoT場域"><a href="#傳統架構應用於IoT場域" class="headerlink" title="傳統架構應用於IoT場域"></a>傳統架構應用於IoT場域</h2><p>在傳統架構中，裝置不會直接連上cloud，反而是在中間建立fog服務，提供原本在cloud所提供的服務。為的就是減少cloud被攻擊的風險，但原本存在的攻擊問題還是需要被防範，而無法因為採用該架構就能防範攻擊。</p>
+<ul>
+<li><strong>IoT with Blockchain Architecture</strong></li>
+</ul>
+<p>Blockchain 是透過分散式帳本的技術進行同步資料。其中該技術的特點是帳本的節點數夠多的時候，幾乎可以確保鏈上的資料不會被竄改。這種架構就是將裝置與區塊鏈連接，選擇性的將資料存放在鏈上，使得每一台裝置都自動的同步資料與達到真分散式架構</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*iVKScNWt_RtmVUbZNFHsqQ.png" alt="img"></p>
+<p><strong>Pros:</strong></p>
+<ol>
+<li>資料可以以區塊鍊作為儲存的中心，並在節點數量夠的情況下保證其安全</li>
+<li>避免未被認證的使用者存取</li>
+<li>取代中心化的服務，以去中心化</li>
+</ol>
+<p><strong>Cons:</strong></p>
+<ol>
+<li>成本花費很高: 需要足夠多的節點才能達到一定的安全性。</li>
+<li>吞吐量: 已比特幣為例，一秒鐘的交易吞吐量只有10筆</li>
+<li>手續費: 若是選擇公有鏈來部屬的話，每一筆資料的read/write都需要成本(錢)</li>
+</ol>
+<h2 id="區塊鏈應用於IoT場域"><a href="#區塊鏈應用於IoT場域" class="headerlink" title="區塊鏈應用於IoT場域"></a>區塊鏈應用於IoT場域</h2><p>在區塊鏈的應用場域中，根據其天生的機制防範住 Middleware、Network層的攻擊，基於於區塊鏈分散式帳本的機制，需要透過共識演算法驗證資料的正確性，以及區塊鏈本身鏈結的設計使得上鏈的資料基本上不可能被竄改。</p>
+<p>然而也因為這一點的安全性優勢，也有些副作用。因為需要透過共識演算法驗證資料的正確性與不被竄改性，犧牲的是效能與成本。為了有夠多的分散式節點用以同步資料，因此有一套獎勵機制鼓勵外部節點加入，俗稱挖礦機制。</p>
+<h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><p>區塊鏈的應用實際上的確可以防範很大一部份的安全性問題，同時所付出的成本也比較多。如: 吞吐量低、節點間資料同步成本…等。而傳統架構雖然需要面對的問題很多，可是並沒有吞吐量低、節點間資料同步成本…等問題。因此選用的關鍵點在於資料的價值，若是價值夠高則可考慮採用區塊鏈的方式，反之則傳統的就很適用了。</p>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><p>[1] Hassija, Vikas, et al. “A survey on IoT security: application areas, security threats, and solution architectures.” <em>IEEE Access</em> 7 (2019): 82721–82743.</p>
+
+        </div>
+        <footer>
+            <p class="meta">
+                <span class="byline author vcard">Posted by <span class="fn">John Doe</span></span>
+                <time datetime="2021-03-07T11:55:38.000Z" data-updated="true">Sun Mar 07 2021</time>
+                
+            </p>
+            <div class="sharing">
+    
+        <a class="twitter-share-button"
+           target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=%E5%8D%80%E5%A1%8A%E9%8F%88%E7%89%A9%E8%81%AF%E7%B6%B2%E6%9E%B6%E6%A7%8B%20%E8%A7%A3%E6%B1%BA%E5%93%AA%E4%BA%9B%E5%AE%89%E5%85%A8%E6%80%A7%E8%AD%B0%E9%A1%8C%EF%BC%9F">
+            Tweet
+        </a>
+    
+</div>
+
+            <p class="meta">
+                
+                <a class="basic-alignment left" href="/" title="Previous Post: 淺談-NoSQL資料庫怎麼選？">« 淺談-NoSQL資料庫怎麼選？</a>
+                
+
+                
+                <a class="basic-alignment right" href="/" title="Previous Post: Golang Goroutine Concurrency-多執行緒必要知道的五件事情">Golang Goroutine Concurrency-多執行緒必要知道的五件事情 »</a>
+                
+            </p>
+        </footer>
+    </article>
+
+    
+
+</div>
+
+<aside class="sidebar">
+    <section class="odd">
+    <h1>Recent Posts</h1>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/04/18/nosql_database_selection_guild/">淺談-NoSQL資料庫怎麼選？</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/03/07/blockchain_security_problem/">區塊鏈物聯網架構 解決哪些安全性議題？</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/21/golang_goroutine/">Golang Goroutine Concurrency-多執行緒必要知道的五件事情</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/20/rfc_oauth%202.0/">從 RFC 規格書觀點解析 OAuth 2.0</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/06/Golang_go_mod/">Golang go mod 入門</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/25/Overview_The_WebSocket_Mechanism/">Overview The WebSocket Mechanism</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/19/How_do_AppRTC_work_in_WebRTC_mechanism/">How do AppRTC work in WebRTC mechanism ?</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/11/what_is_Broker/">Broker 到底是什麼？</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/04/use_TorchServe_deploy_Model/">使用 TorchServe 部署 Model</a></li></ul>
+</section><section class="even">
+    <h1>GitHub Repos</h1>
+    <ul id="gh_repos">
+        <li class="loading">Status updating&#8230;</li>
+    </ul>
+
+    <a target="_blank" rel="noopener" href="https://github.com/your_github">@your_github</a> on GitHub
+
+    <script>
+        $(document).ready(function(){
+            const options = {
+                user: 'your_github',
+                count: 0,
+                skip_forks: true,
+                target: '#gh_repos'
+            }
+
+            function escapeHtml(str) {
+                return $('<div/>').text(str).html();
+            }
+
+            function render(target, repos){
+                let i, fragment = '', t = $(target)[0];
+
+                for(i = 0; i < repos.length; i++) {
+                    fragment += '<li><a href="'+repos[i].html_url+'">'+repos[i].name+'</a><p>'+escapeHtml(repos[i].description||'')+'</p></li>';
+                }
+                t.innerHTML = fragment;
+            }
+
+            $.ajax({
+                url: "https://api.github.com/users/"+options.user+"/repos?sort=pushed&callback=?",
+                dataType: 'jsonp',
+                error: function (err) {
+                    $(options.target + ' li.loading').addClass('error').text("Error loading feed");
+                },
+                success: function(data) {
+                    var repos = [];
+                    if (!data || !data.data) { return; }
+                    for (var i = 0; i < data.data.length; i++) {
+                        if (options.skip_forks && data.data[i].fork) { continue; }
+                        repos.push(data.data[i]);
+                    }
+                    if (options.count) { repos.splice(options.count); }
+                    render(options.target, repos);
+                }
+            });
+        });
+    </script>
+</section>
+</aside>
+
+    </div>
+</div>
+
+<footer role="contentinfo">
+    <p>
+        Copyright © 2021 - John Doe -
+        <span class="credit">Generated using <a target="_blank" rel="noopener" href="https://github.com/jbreckmckye/hexo-theme-octo">Octo theme</a> for <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></span>
+    </p>
+</footer>
+
+
+
+</body>
+</html>
