@@ -22,7 +22,7 @@
 <meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*etZk9o-phnwO4OhrPIxYEQ.png">
 <meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*cQXlaXecHX20SgikrFq8WQ.png">
 <meta property="article:published_time" content="2020-12-20T11:55:38.000Z">
-<meta property="article:modified_time" content="2021-04-24T12:14:43.380Z">
+<meta property="article:modified_time" content="2021-04-24T15:13:07.540Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn-images-1.medium.com/max/800/1*MUinbUTGNqXuICy6QauZiw.jpeg">
@@ -180,7 +180,9 @@
 <td>欲存取的服務</td>
 </tr>
 </tbody></table>
+<blockquote>
 <p>OAuth2 角色分配表</p>
+</blockquote>
 <p>舉一個最常被 OAuth 相關書籍提及的例子：你(Resource Owner)有一張儲存在雲端服務的相片(Protected Resource)，今天你想要透過一個影印服務(Client)去列印該相片。</p>
 <p>在傳統做法上，為了讓影印服務(Client)拿到相片就必須將你的雲端服務的憑證（例如：帳號密碼）給這個影印服務，讓它能存取該雲端服務的資源。而 IETF RFC 6749 及 Action 書中列出了一些缺點：</p>
 <ul>
@@ -199,15 +201,15 @@
 <p>簡單來說，Client若要存取服務的話，首先要先拿到<strong>Authorization Grant</strong>，再使用Grant拿取<strong>Access Token</strong>，最後再使用Access Token<strong>存取服務</strong>。</p>
 <p><img src="https://cdn-images-1.medium.com/max/800/1*l5TgbUBqMWW0wvPn8-wdJw.png" alt="img">Access Work Flow in OAuth2</p>
 <h2 id="Authorization-Grant依照存取程度分為四種方式存取-Protected-Resource"><a href="#Authorization-Grant依照存取程度分為四種方式存取-Protected-Resource" class="headerlink" title="Authorization Grant依照存取程度分為四種方式存取 Protected Resource:"></a>Authorization Grant依照存取程度分為四種方式存取 Protected Resource:</h2><ul>
-<li><strong>Authorization Code<br>屬於比較廣泛被使用的</strong>，client 取得 Authorization Code 才能以此換取access token。</li>
+<li><strong>Authorization Code</strong><br>屬於比較廣泛被使用的**，client 取得 Authorization Code 才能以此換取access token。</li>
 </ul>
 <p><img src="https://cdn-images-1.medium.com/max/800/1*nJVTrVbGWxxjD0ZUulzo5A.png" alt="img"><strong>Authorization Code Grant</strong></p>
 <ul>
-<li>**Implicit<br>**是相對安全性來的稍微低一點，是直接取得 access token。好處是可以減少存取的 round trip 加速認證的過程。</li>
+<li><strong>Implicit</strong><br>是相對安全性來的稍微低一點，是直接取得 access token。好處是可以減少存取的 round trip 加速認證的過程。</li>
 </ul>
 <p><img src="https://cdn-images-1.medium.com/max/800/1*cKtqMkJIsoUP_soge2bhiQ.png" alt="img"><strong>Implicit Grant</strong></p>
 <ul>
-<li>**Resource Owner Password Credentials Grant<br>**指的是直接透過 password 直接從 Authorization Server 取得 access token，比較適合使用在可以信任的 client。</li>
+<li><strong>Resource Owner Password Credentials Grant</strong><br>指的是直接透過 password 直接從 Authorization Server 取得 access token，比較適合使用在可以信任的 client。</li>
 </ul>
 <p><img src="https://cdn-images-1.medium.com/max/800/1*Z2dTiCFcvJBpo_MooR1uAg.png" alt="img"><strong>Resource Owner Password Credentials Grant</strong></p>
 <ul>
