@@ -1,8 +1,223 @@
-{%- extends "_layout.swig" -%}
-{%- import '_macro/post.swig' as post_template -%}
+<!DOCTYPE html>
+<html lang="zh-tw">
+  <head><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
-{%- block title -%} {{ page.title }} - {{ config.title }} {%- endblock -%}
 
-{%- block content -%}
-  {{ post_template.render(page) }}
-{%- endblock -%}
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="Golang go mod 入門"/><link rel="alternate" href="/atom.xml" title="Jerry Wang Blog" type="application/atom+xml"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://xixiangfiles.github.io/2020/12/06/Golang_go_mod/"/>
+
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
+
+<script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
+</script>
+
+    <title>Golang go mod 入門 - Jerry Wang Blog</title>
+  <meta name="generator" content="Hexo 5.4.0"></head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Jerry Wang Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Jerry Wang Blog</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">Golang go mod 入門
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-12-06
+        </span></div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#GOPATH%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F-%E6%97%A9%E6%9C%9F%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="toc-text">GOPATH使用方式(早期使用方式)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Go-mod-%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-text">Go mod 使用方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B8%BD%E7%B5%90"><span class="toc-text">總結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-text">參考資料</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><p>Golang 套件到底要怎麼用？！</p>
+<p>Go mod 是 go 1.11 version 之後出的管理套件的工具，並且Go 1.13 version 之後成為管理套件的正式工具(成為default)。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/XiXiangFiles/golang-mod-tutorial"><strong>範例程式碼</strong></a></p>
+</blockquote>
+<h2 id="GOPATH使用方式-早期使用方式"><a href="#GOPATH使用方式-早期使用方式" class="headerlink" title="GOPATH使用方式(早期使用方式)"></a>GOPATH使用方式(早期使用方式)</h2><p>在go mod 發布之前都是需要在$GOPATH/src路徑下才能夠使用，當需要使用模組的時候，必須將用到的資料夾link 到$GOPATH/src才能夠使用。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*NlGvZE7s94dGJb-66tOLWQ.png" alt="img">查看GOPATH</p>
+<p>以上圖為例，如果要使用模組需確保/home/ubuntu/go/src中有該模組才能夠取用。下面舉hello world實例。</p>
+<p>檔案結構： <strong>執行go run main.go 印出 hello world</strong></p>
+<pre><code>-hello_GOPATH/
+   - main.go
+   - src/
+   - hello/
+       - hello.go
+</code></pre>
+<p>step 1. 將GOPATH指到目前資料夾</p>
+<pre><code>go env -w GOPATH=$(pwd)
+</code></pre>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*UM8DBOaia3PFqnENWT9MWw.png" alt="img">確認GOPATH位置</p>
+<p>step 2. 撰寫package hello 模組(package)</p>
+<pre><code>package hello
+import &quot;fmt&quot;
+func PrintHello() &#123; // fun大寫代表public(才能夠被存取)
+    fmt.Println(&quot;hello world&quot;)
+&#125;
+</code></pre>
+<p>step 3. 將package資料夾link 到$GOPATH/src/</p>
+<pre><code>ln -s `pwd`/hello $(go env GOPATH)/src
+</code></pre>
+<p>step 4. 撰寫package main</p>
+<pre><code>package main
+import &quot;hello&quot;  // src/hello 資料夾下
+func main() &#123;
+    hello.PrintHello()
+&#125;
+</code></pre>
+<p>執行結果：</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*tSg_5Cab_q5r-jJjCu1LGQ.png" alt="img"></p>
+<h2 id="Go-mod-使用方法"><a href="#Go-mod-使用方法" class="headerlink" title="Go mod 使用方法"></a>Go mod 使用方法</h2><p>這種用法不用像使用GOPATH的方法，需要改變GOPATH的位置。而是透過go.mod檔案辨識目前要執行的專案位置(取代GOPATH設定)。並且go.mod可以紀錄所有使用的相依模組，只要透過go install指令就可以自動安裝所有相依模組的功能。</p>
+<p>檔案結構： <strong>執行go run main.go 印出 hello world</strong></p>
+<pre><code>-hello/
+   - main.go
+   - go.mod
+   - hello/
+       - hello.go
+</code></pre>
+<p>step 1. go mod init hello</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*v01xFqsBXp0vDJVfj-aS9g.png" alt="img"></p>
+<pre><code>module hello  //產生出來的模組名
+go 1.15 // golang 現在的版本
+</code></pre>
+<p>step 2. 撰寫hello 模組</p>
+<pre><code>package hello
+import &quot;fmt&quot;
+func PrintHello() &#123; // fun大寫代表public(才能夠被存取)
+    fmt.Println(&quot;hello world&quot;)
+&#125;
+</code></pre>
+<p>step 3. 撰寫package main(需要在最上層)</p>
+<pre><code>package main
+import &quot;hello/hello&quot;  //module/package name
+func main() &#123;
+    hello.PrintHello()
+&#125;
+</code></pre>
+<p>執行結果：</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*bcNrwG5CpKdGNE-a_CY27g.png" alt="img"></p>
+<blockquote>
+<p>v1.11之後為了解決套件管理的問題，官方出現了go mod的工具，並且v1.11、v1.12可以共存GOPATH的存在。然而在1.13之後GOPATH跟go mod**兩者是不能並存的 (GOPATH不可指向有go.mod 的資料夾)**。</p>
+</blockquote>
+<h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><p>在撰寫Golang 專案的時候，盡量的使用go mod，盡量不修改GOPATH來開發。因為go mod會幫助開發者紀錄相依的模組，方便之後部署、交付程式碼。</p>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><p><a target="_blank" rel="noopener" href="https://blog.golang.org/using-go-modules">https://blog.golang.org/using-go-modules</a></p>
+
+      </div>
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://xixiangfiles.github.io">Jerry Wang</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://xixiangfiles.github.io/2020/12/06/Golang_go_mod/">https://xixiangfiles.github.io/2020/12/06/Golang_go_mod/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+      <footer class="post-footer">
+        
+        <nav class="post-nav"><a class="prev" href="/2020/12/20/rfc_oauth%202.0/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">從 RFC 規格書觀點解析 OAuth 2.0</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/2020/11/25/Overview_The_WebSocket_Mechanism/">
+        <span class="next-text nav-default">Overview The WebSocket Mechanism</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"></div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+        <a target="_blank" rel="noopener" href="https://github.com/ahonn" class="iconfont icon-github" title="github"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" target="_blank" rel="noopener" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2021<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Jerry Wang</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+</body>
+</html>

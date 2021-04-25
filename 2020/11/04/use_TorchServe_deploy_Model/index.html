@@ -1,8 +1,253 @@
-{%- extends "_layout.swig" -%}
-{%- import '_macro/post.swig' as post_template -%}
+<!DOCTYPE html>
+<html lang="zh-tw">
+  <head><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
-{%- block title -%} {{ page.title }} - {{ config.title }} {%- endblock -%}
 
-{%- block content -%}
-  {{ post_template.render(page) }}
-{%- endblock -%}
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="使用 TorchServe 部署 Model"/><link rel="alternate" href="/atom.xml" title="Jerry Wang Blog" type="application/atom+xml"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://xixiangfiles.github.io/2020/11/04/use_TorchServe_deploy_Model/"/>
+
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
+
+<script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
+</script>
+
+    <title>使用 TorchServe 部署 Model - Jerry Wang Blog</title>
+  <meta name="generator" content="Hexo 5.4.0"></head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Jerry Wang Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Jerry Wang Blog</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">使用 TorchServe 部署 Model
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-11-04
+        </span></div>
+    </header>
+
+    <div class="post-content"><p>TorchServe 是 PyTorch 提供給開發者部署 models 的工具（實驗階段）。也就是說開發者不用再寫 HTTP 服務去部署，直接使用 TorchServe 工具就可以了！</p>
+<p><strong>系統架構</strong><br><strong>TorchServe 主要提供兩個 API：</strong>Management API 是用來設定 TorchServe 服務<strong>，如註冊新的 Model 服務、卸載 Model 服務，監看 TorchServe 的狀態；</strong>Inference API 用來取得辨識結果**。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*w2xTsxjj1aimOsVIVZPw0w.png" alt="img"></p>
+<ul>
+<li>Frontend：指的是 request batching + <strong>Inference API Handler。</strong>request batching 是由 <strong>Management API</strong> 設定；<strong>Inference API Handler</strong> 則是由開發者自行撰寫</li>
+<li>Worker Process：指的是一組辨識程式的運行(trained model + model handler)，概念像是 Thread，可由 <strong>Management API 進行設定運行的數量</strong>。</li>
+<li>Model Store：透過 TorchServe 工具壓縮後的 model package。</li>
+<li>Backend：指的是管理 Worker Process 的程式，由 <strong>Management API</strong> 讓使用者管理。</li>
+</ul>
+<p><strong>使用指南</strong><br>使用 TorchServe 需要準備三個檔案：Trained Model、Inference handler 、model Handler，將這三個東西使用 TorchServe Archiver 將其壓縮成 .mar 檔案。最後將 .mar 檔放入 TorchServe 裡，註冊後就佈署！</p>
+<p>TorchServe 預設 8080 port 用於 inference ; 8081 port 用於管理 TorchServe 如下圖：</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*HyvdEPTr16G-FCxPOlP7qQ.png" alt="img"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/pytorch/serve"><strong>舉例：以官方 densenet161 Example 為例</strong></a></p>
+<ol>
+<li>開始之前必須先安裝 <strong>TorchServe</strong>、<strong>torch-model-archiver，</strong>一個是用來跑 TorchServe 服務的，另一個是用來壓縮 Trained Model、Inference handler 、model Handler 的套件。</li>
+<li>使用 <strong>torch-model-archiver</strong> 進行壓縮，會得到<a target="_blank" rel="noopener" href="http://127.0.0.1:8080/predictions/densenet161">densenet161</a>.mar檔案，</li>
+<li>最後將該檔案註冊進去 TorchServe 就可以使用了。</li>
+</ol>
+<p>指令如下：</p>
+<pre><code class="sh">pip install torchserve torch-model-archiver       # 安裝必要套件
+git clone https://github.com/pytorch/serve.git    # clone example
+cd serve/examples/image_classifier/               # 進入image_classifier example
+cp index_to_name.json densenet_161/               # 
+cd densenet_161/
+ # 若無預設輸出資料夾，則創建一個
+if [ ! -d &quot;model-store&quot; ]; then                   
+    echo &quot;creates new folder: &quot; $export_path
+    mkdir $export_path
+fi
+#下載trained model
+wget https://download.pytorch.org/models/densenet161-8d451a50.pth
+#壓縮densenet161範例 -&gt; densenet161.mar
+torch-model-archiver --model-name densenet161 --version 1.0 --model-file model.py \
+                    --serialized-file densenet161-8d451a50.pth --handler image_classifier \
+                    --extra-files index_to_name.json --export-path=&quot;model-store&quot; 
+torchserve --start --model-store model-store/ --models densenet161.mar  # 註冊densenet1611並啟動torchserve
+</code></pre>
+<p>可以使用 curl 進行驗證是否抓到 <a target="_blank" rel="noopener" href="http://127.0.0.1:8080/predictions/densenet161">densenet161</a> model，並試著傳一張圖看看是否有成功運行。</p>
+<pre><code>curl 127.0.0.1:8081/models
+curl http://127.0.0.1:8080/predictions/densenet161 -T kitten.jpg
+</code></pre>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*eRXtMN-zFSLrcUew9JZe_g.png" alt="img"></p>
+<p><strong>Debug 經驗談</strong></p>
+<p>TorchServe 是一個非常新的部署工具，debug 不知道如何 debug，用起來真的很崩潰。其實一開始壓縮的 .mar 檔，TorchServe 抓到之後會將其解壓縮至 /tmp 中。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*uubZ3uHv4SRGqEXQ7WtFKw.png" alt="img"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*9Qy_s7HLw91_yo0SsE2A0Q.png" alt="img"></p>
+<p>因此當想要進行 debug 的時候，<strong>要切到 /tmp 資料夾中使用 python3 指令執行</strong>，如果沒問題，理論上 TorchServe 就能夠成功運作。</p>
+<p><strong>常用Management API 介紹<br><strong>在這邊分享一些過去部署TorchServe常用用的一些API，首先在註冊的時候會不知道目前到底有沒有抓到Trained model?這時候可以使用</strong>List models API</strong></p>
+<pre><code>curl &quot;http://localhost:8081/models&quot;
+</code></pre>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*i-I6Fn25WH80ae5exdK5mg.png" alt="img"></p>
+<p>此外就是考慮到效能面的話，或許有需要修改某一個model的Worker Process數量這種需求，也可利用PUT對某一個model修改Worker Process的數量。</p>
+<pre><code>curl -v -X PUT &quot;http://localhost:8081/models/&lt;modelname&gt;?min_worker=3&quot;
+</code></pre>
+<p>就已feature_extractor這個model為例：首先先看一下model的資訊</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*SaA7LEMJ-guXfwoADZwedg.png" alt="img"></p>
+<pre><code># 進行修改之後
+curl -v -X PUT “http://localhost:8081/models/feature_extractor?min_worker=3&quot;
+</code></pre>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*VFxqC8ig2eHIMqA_M6VyYA.png" alt="img"></p>
+<p><strong>Inference handler撰寫經驗談：<br><strong>inference handler文件相當的簡潔，在撰寫handler的時候可參考下面程式碼，</strong>大致上每個區塊的function要杜撰什麼都記載註解上</strong>。此外撰寫完，註冊進去TorchServe後<strong>要能夠在/tmp中找到，同時是可直接執行的狀態</strong>，若不是則需要繼續debug。</p>
+<p><strong>Debug有雷請小心</strong>：</p>
+<ol>
+<li>輸出只吃JSON格式</li>
+<li>batch size 大小(如果batch size 為1，JSON List數量只能是1)</li>
+</ol>
+<pre><code class="python">class ModelHandler(BaseHandler):
+
+    def __init__(self):
+        self._context = None
+        self.initialized = False
+
+    # 用於load trained model 的地方，以及其他設定檔
+    def initialize(self, context):
+        self._context = context
+        self.initialized = True
+        #  load the model, refer &#39;custom handler class&#39; above for details
+    
+    # 用於predictions的時候，接收http post request的function: 預設接收key為data的資料
+    def preprocess(self, data):
+        # Take the input data and make it inference ready
+        preprocessed_data = data[0].get(&quot;data&quot;)
+        if preprocessed_data is None:
+            preprocessed_data = data[0].get(&quot;body&quot;)
+
+        return preprocessed_data
+
+    # 用來進行運算的function，最後的結果會交由postprocess()後處理
+    def inference(self, model_input):
+
+        # Do some inference call to engine here and return output
+        model_output = self.model.forward(model_input)
+        return model_output
+
+    # 指的是發送post：inference()之後的結果
+    def postprocess(self, inference_output):
+        postprocess_output = inference_output
+        return postprocess_output
+
+    def handle(self, data, context):
+
+        model_input = self.preprocess(data)
+        model_output = self.inference(model_input)
+        return self.postprocess(model_output)
+</code></pre>
+<blockquote>
+<ol>
+<li>雖然預設輸出是JSON，打request進去的資料格式沒有規定喔，可利用像是protocol buffers這種技術進行傳遞是沒有問題的！</li>
+<li>batchsize 修改方法:</li>
+</ol>
+<p><em>curl -v -X PUT “<a target="_blank" rel="noopener" href="http://localhost:8081/models/">http://localhost:8081/models/</a><modelname>?batch_size=<number>“</em></p>
+</blockquote>
+
+      </div>
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://xixiangfiles.github.io">Jerry Wang</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://xixiangfiles.github.io/2020/11/04/use_TorchServe_deploy_Model/">https://xixiangfiles.github.io/2020/11/04/use_TorchServe_deploy_Model/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+      <footer class="post-footer">
+        
+        <nav class="post-nav"><a class="prev" href="/2020/11/11/what_is_Broker/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">Broker 到底是什麼？</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"></div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+        <a target="_blank" rel="noopener" href="https://github.com/ahonn" class="iconfont icon-github" title="github"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" target="_blank" rel="noopener" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2021<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Jerry Wang</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+</body>
+</html>

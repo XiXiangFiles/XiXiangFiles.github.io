@@ -1,8 +1,213 @@
-{%- extends "_layout.swig" -%}
-{%- import '_macro/post.swig' as post_template -%}
+<!DOCTYPE html>
+<html lang="zh-tw">
+  <head><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
-{%- block title -%} {{ page.title }} - {{ config.title }} {%- endblock -%}
 
-{%- block content -%}
-  {{ post_template.render(page) }}
-{%- endblock -%}
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="How do AppRTC work in WebRTC mechanism ?"/><link rel="alternate" href="/atom.xml" title="Jerry Wang Blog" type="application/atom+xml"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://xixiangfiles.github.io/2020/11/19/How_do_AppRTC_work_in_WebRTC_mechanism/"/>
+
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
+
+<script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
+</script>
+
+    <title>How do AppRTC work in WebRTC mechanism ? - Jerry Wang Blog</title>
+  <meta name="generator" content="Hexo 5.4.0"></head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Jerry Wang Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Jerry Wang Blog</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">How do AppRTC work in WebRTC mechanism ?
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-11-19
+        </span></div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#WebSocket-API"><span class="toc-text">WebSocket API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP-API"><span class="toc-text">HTTP API</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><p>In this article, we illustrate how AppRTC do work.</p>
+<p>AppRTC is a WebRTC open source repo that implements two clients who can communicate with each other with webcam and voice. That works like a chatting room but only two persons in the room. When there have two clients in the room, they will exchange some messages for building a p2p connection and starting communication.</p>
+<p>But it doesn’t the whole WebRTC main mechanism that is only data exchange and manages the connection process. So AppRTC is a sample system when the coder implements WebRTC, help them decrease the development time.</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/webrtc/apprtc">AppRTC Repo is here!</a><br><a target="_blank" rel="noopener" href="https://www.w3.org/TR/webrtc/#peer-to-peer-connections">WebRTC mechanism</a></p>
+</blockquote>
+<p>**Manipulate AppRTC<br>**First, one client joins a room and waiting for the other client to join. At once, there are two clients in the room, they can chat with each other.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*SBGnOfjTNDU7TciZLndoLg.gif" alt="img"></p>
+<p>**The AppRTC Implement (not include p2p mechanism)<br>**We divided into two part to illustrate AppRTC work. The first client join room and the second client join room.</p>
+<p>The first client join room:</p>
+<ol>
+<li>Get / for getting AppRTC home page.</li>
+<li>Post /join/:room_id for registry room id into AppRTC and getting a Client ID to registry Signal Server.</li>
+<li>Use Client ID to registry Signal Server (Collider Server)<br>send /ws {cmd: “register”, “roomid”:””, “clientid”: “”}</li>
+<li>POST /message/:room_id/:client_id for storing p2p connection message into AppRTC Server.(About sdp、(ICE) candidate messages)</li>
+<li>Waiting another sdp and (ICE) Candidate message.</li>
+</ol>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*d7Ukv4SqzjIzhaqObqWVJA.png" alt="img"></p>
+<p>The second client join room:</p>
+<ol>
+<li>Get / for getting AppRTC home page.</li>
+<li>Post /join/:room_id for registry room id into AppRTC and getting a Client ID to registry Signal Server and <strong>first client p2p connection cache(sdp, (ICE)</strong> <strong>candidate)</strong></li>
+<li>According to cache generates a new p2p connection message and send it by WebSocket to the first client</li>
+<li>Two clients communicate with each other through p2p.</li>
+</ol>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*6QtDR_rI77tXj4lcQcM5nw.png" alt="img"></p>
+<p>The Collider Server API</p>
+<p>The Collider server has two functions. one is HTTP, the other one is WebSocket. The WebSocket API is for the client to communicate with each other like registry and send these actions. The HTTP API is for AppRTC server sync room status.</p>
+<h2 id="WebSocket-API"><a href="#WebSocket-API" class="headerlink" title="WebSocket API"></a>WebSocket API</h2><table>
+<thead>
+<tr>
+<th>numbers</th>
+<th>parameters</th>
+<th>illustration</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>{cmd: “register”, “roomid”:””, “clientid”: “”}</td>
+<td>join room</td>
+</tr>
+<tr>
+<td>2</td>
+<td>{cmd: “send”, “roomid”:””, “clientid”: “”, “msg”:”<em><strong>JSON string</strong></em>“}</td>
+<td>send message to the other client</td>
+</tr>
+</tbody></table>
+<h2 id="HTTP-API"><a href="#HTTP-API" class="headerlink" title="HTTP API"></a>HTTP API</h2><table>
+<thead>
+<tr>
+<th align="center">numbers</th>
+<th align="center">parameters</th>
+<th>illustration</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">post /bye/:room_id:/:client_id</td>
+<td>delete collider room status</td>
+</tr>
+</tbody></table>
+<p>**Conclusion<br>**In the AppRTC demo application, it follows <a target="_blank" rel="noopener" href="https://medium.com/%E5%BE%AE%E5%B3%AF%E9%A3%9B%E7%BF%94/broker%E5%88%B0%E5%BA%95%E6%98%AF%E4%BB%80%E9%BA%BC-707ddc05268a">Broker Architecture</a> to coordinate p2p message exchange. Though the key-point is not <strong>the sdp and (ICE) candidate</strong> message exchanged method, but it still important to manage the exchange process. So if you read AppRTC open source, this article can help you modify this project.</p>
+
+      </div>
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://xixiangfiles.github.io">Jerry Wang</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://xixiangfiles.github.io/2020/11/19/How_do_AppRTC_work_in_WebRTC_mechanism/">https://xixiangfiles.github.io/2020/11/19/How_do_AppRTC_work_in_WebRTC_mechanism/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+      <footer class="post-footer">
+        
+        <nav class="post-nav"><a class="prev" href="/2020/11/25/Overview_The_WebSocket_Mechanism/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">Overview The WebSocket Mechanism</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/2020/11/11/what_is_Broker/">
+        <span class="next-text nav-default">Broker 到底是什麼？</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"></div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+        <a target="_blank" rel="noopener" href="https://github.com/ahonn" class="iconfont icon-github" title="github"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" target="_blank" rel="noopener" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2021<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Jerry Wang</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+</body>
+</html>
