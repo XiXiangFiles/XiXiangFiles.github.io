@@ -115,7 +115,7 @@
 </ul>
 <p><img src="https://cdn-images-1.medium.com/max/800/1*tXVk6ZKMMeKapkeEDUWn1Q.png" alt="img"></p>
 <h2 id="2-NoSQL-分類-CAP-Consistency-Availability-Partition-Tolerance"><a href="#2-NoSQL-分類-CAP-Consistency-Availability-Partition-Tolerance" class="headerlink" title="2. [NoSQL 分類]- CAP (Consistency, Availability, Partition Tolerance)"></a>2. [NoSQL 分類]- CAP (Consistency, Availability, Partition Tolerance)</h2><p>Consistency: 讀寫都會遵循Atomicity原則，Availability: 在non-failing node的時候 Client 讀、寫都能正常運行，Partition Tolerance: 在cluster 狀態下，node 之間的網路不穩的狀態下，還能夠維持availability。</p>
-<p>從上述CAP中，一般資料庫不可能同時達到，因為在Available的情況下，Consistency與Partition Tolerance是互相矛盾的。**(cluster node不能互相溝通時，不能保證資料的一致性)**，因此大致的分類有 AP、CA、CP:</p>
+<p>從上述CAP中，一般資料庫不可能同時達到，因為在Available的情況下，Consistency與Partition Tolerance是互相矛盾的。(<strong>cluster node不能互相溝通時，不能保證資料的一致性</strong>)，因此大致的分類有 AP、CA、CP:</p>
 <ul>
 <li>AP: 不管是在 single-node 或者是 cluster，只有要 node 可用就能持續運作</li>
 <li>CA: 在沒有任何的例外下，都是可用並保證資料的一致性。</li>

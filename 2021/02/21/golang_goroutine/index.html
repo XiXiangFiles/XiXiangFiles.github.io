@@ -89,7 +89,7 @@
       <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Golang-%E5%A4%9A%E5%9F%B7%E8%A1%8C%E7%B7%92%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="toc-text">Golang 多執行緒使用方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%A4%9A%E5%9F%B7%E8%A1%8C%E7%B7%92%E7%9B%B8%E4%BA%92%E6%BA%9D%E9%80%9A"><span class="toc-text">1. 多執行緒相互溝通</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%AD%89%E5%BE%85%E4%B8%80%E5%9F%B7%E8%A1%8C%E7%B7%92%E7%B5%90%E6%9D%9F%E5%BE%8C%E5%86%8D%E6%8E%A5%E7%BA%8C%E5%B7%A5%E4%BD%9C"><span class="toc-text">2. 等待一執行緒結束後再接續工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%A4%9A%E5%9F%B7%E8%A1%8C%E7%B7%92%E5%85%B1%E7%94%A8%E5%90%8C%E4%B8%80%E5%80%8B%E8%AE%8A%E6%95%B8"><span class="toc-text">3. 多執行緒共用同一個變數</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E4%B8%8D%E5%90%8C%E5%9F%B7%E8%A1%8C%E7%B7%92%E7%94%A2%E5%87%BA%E5%BD%B1%E9%9F%BF%E5%BE%8C%E7%BA%8C%E9%82%8F%E8%BC%AF"><span class="toc-text">4. 不同執行緒產出影響後續邏輯</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%85%84%E5%BC%9F%E5%9F%B7%E8%A1%8C%E7%B7%92%E9%96%93%E4%B8%8D%E6%B1%82%E5%90%8C%E7%94%9F%E5%8F%AA%E6%B1%82%E5%90%8C%E6%AD%BB"><span class="toc-text">5. 兄弟執行緒間不求同生只求同死</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B8%BD%E7%B5%90"><span class="toc-text">總結</span></a></li></ol>
     </div>
   </div><div class="post-content"><p>Golang 中多執行緒稱為” Goroutine” ，在其他程式語言中大多稱為” Thread”，本文提供常用的五種用法，下文提供範例並詳述使用方式(channel, context, sync.WaitGroup, Select, sync.Lock)。</p>
-<p>在Go語言中，對於多執行緒是相當友善好用的，相對其他語言所需要的資源與行數都少很多。以Java 8為例，執行一個Thread 預設需要分配1MB 記憶體，而**Golang只需要2kB(超級輕量)**。<a target="_blank" rel="noopener" href="https://play.golang.org/p/B05Y2mAaXtH">*<strong>範例程式*</strong></a></p>
+<p>在Go語言中，對於多執行緒是相當友善好用的，相對其他語言所需要的資源與行數都少很多。以Java 8為例，執行一個Thread 預設需要分配1MB 記憶體，而<strong>Golang只需要2kB(超級輕量)</strong> 。<a target="_blank" rel="noopener" href="https://play.golang.org/p/B05Y2mAaXtH">範例程式</a></p>
 <p><img src="https://miro.medium.com/max/608/1*fObsTmUM-KJlH_zC5ojriQ.png" alt="img"></p>
 <blockquote>
 <p>a goroutine memory</p>
@@ -114,8 +114,7 @@ func main() &#123;
 &#125;
 </code></pre>
 <p>Goroutine 基本用法</p>
-<p><img src="https://miro.medium.com/max/560/1*QkO_TiZt1in5kRrc25D4Zw.png" alt="img"></p>
-<p>Goroutine 基本用法程式<strong>執行結果</strong></p>
+<p><img src="https://miro.medium.com/max/560/1*QkO_TiZt1in5kRrc25D4Zw.png" alt="Goroutine 基本用法程式執行結果"></p>
 <blockquote>
 <p>以上執行的結果為”Done！”，原因是在未執行完Goroutine的時候就自動的被釋放掉了，導致不會印出Goroutine Done！的字樣。</p>
 </blockquote>
@@ -134,7 +133,7 @@ func main() &#123;
 <li>透過Socket的方式</li>
 </ul>
 <p>Goroutine的溝通主要可以透過channel、全域變數進行操作。<strong>Channel有點類似Linux C語言中pipe的方式，主要分成分為寫入端與讀取端。而全域變數的方式就是單純變數。</strong></p>
-<p>首先Channel的部份，宣告的方式是透過chan關鍵字宣告，搭配make 關鍵字令出空間，語法為: ***make(chan 型別 容量)***。例子如下：</p>
+<p>首先Channel的部份，宣告的方式是透過chan關鍵字宣告，搭配make 關鍵字令出空間，語法為: <strong>make(chan 型別 容量)</strong> 。例子如下：</p>
 <pre><code class="go">package main
 
 import (
@@ -167,8 +166,7 @@ func main() &#123;
 &#125;
 </code></pre>
 <p>example: 多執行緒相互溝通(使用channel)</p>
-<p><img src="https://miro.medium.com/max/559/1*Vl-2ksuXnQT6SkTQklefeQ.png" alt="img"></p>
-<p>example: 執行結果</p>
+<p><img src="https://miro.medium.com/max/559/1*Vl-2ksuXnQT6SkTQklefeQ.png" alt="example 執行結果"></p>
 <blockquote>
 <p><strong>Tips:</strong><br>&lt;- chan // 代表的是從channel中取出<br>chan &lt;- //代表注入資料進去channel</p>
 </blockquote>
@@ -194,8 +192,7 @@ func main() &#123;
 &#125;
 </code></pre>
 <p>example 2: 多執行緒相互溝通(共用變數)</p>
-<p><img src="https://miro.medium.com/max/564/1*2BH45e31RgB5EngJ8zr15Q.png" alt="img"></p>
-<p>example 2 執行結果</p>
+<p><img src="https://miro.medium.com/max/564/1*2BH45e31RgB5EngJ8zr15Q.png" alt="example 2 執行結果"></p>
 <h2 id="2-等待一執行緒結束後再接續工作"><a href="#2-等待一執行緒結束後再接續工作" class="headerlink" title="2. 等待一執行緒結束後再接續工作"></a>2. 等待一執行緒結束後再接續工作</h2><p>比較熟悉Java的人可以聯想到Join的概念，而在Golang中要做到等待的這件事情有兩個方法，一個是sync.WaitGroup、另一個是channel。</p>
 <p>首先<strong>Sync.WaitGroup 像是一個計數器</strong>，啟動一條Goroutine 計數器 +1; 反之結束一條 -1。若計數器為複數代表Error。</p>
 <pre><code class="go">package main
@@ -222,8 +219,7 @@ func main() &#123;
 &#125;
 </code></pre>
 <p>example 3: 等待一執行緒結束後再接續工作(使用sync.WaitGroup)</p>
-<p><img src="https://miro.medium.com/max/563/1*_7dOlNTrqC5sAOEOd44_6g.png" alt="img"></p>
-<p>example 3執行結果</p>
+<p><img src="https://miro.medium.com/max/563/1*_7dOlNTrqC5sAOEOd44_6g.png" alt="example 3執行結果"></p>
 <p>Channel 的作法是利用<strong>等待提取、等待可注入</strong>會lock住的特性，達到<strong>Sync.WaitGroup</strong> 的功能。</p>
 <pre><code class="go">package main
 
@@ -259,8 +255,7 @@ func main() &#123;
 &#125;
 </code></pre>
 <p>example 4: 等待一執行緒結束後再接續工作(使用channel)</p>
-<p><img src="https://miro.medium.com/max/568/1*8tSXGhBXiAa84n5eEsXORg.png" alt="img"></p>
-<p>example 4: 執行結果</p>
+<p><img src="https://miro.medium.com/max/568/1*8tSXGhBXiAa84n5eEsXORg.png" alt="example 4 執行結果"></p>
 <h2 id="3-多執行緒共用同一個變數"><a href="#3-多執行緒共用同一個變數" class="headerlink" title="3. 多執行緒共用同一個變數"></a>3. 多執行緒共用同一個變數</h2><p>在多執行緒的世界，只是讀取一個共用變數是不會有問題的，但若是要進行修改可能會因為多個執行緒正在存取造成concurrent 錯誤。若要解決這種情況，必須在存取時先將資源lock住，就可以避免這種問題。</p>
 <pre><code class="go">
 package main
@@ -345,9 +340,8 @@ func main() &#123;
 &#125;
 </code></pre>
 <p>example 6: 不同執行緒產出影響後續邏輯</p>
-<p><img src="https://miro.medium.com/max/558/1*AaMl_ldz0A-aj70ZJrEBaA.png" alt="img"></p>
-<p>example 6執行結果</p>
-<p><em>上面程式碼的例子，當其中一條</em>Goroutine<em>先結束時，主程式就會自動結束。</em>而<strong>Select的用法就是去聽哪一個channel已經先被注入資料，而做相對應的動作，若同時則是隨機採用對應的方案</strong>。</p>
+<p><img src="https://miro.medium.com/max/558/1*AaMl_ldz0A-aj70ZJrEBaA.png" alt="example 6執行結果"></p>
+<p>上面程式碼的例子，當其中一條<strong>Goroutine</strong>先結束時，主程式就會自動結束。而<strong>Select的用法就是去聽哪一個channel已經先被注入資料，而做相對應的動作，若同時則是隨機採用對應的方案</strong>。</p>
 <h2 id="5-兄弟執行緒間不求同生只求同死"><a href="#5-兄弟執行緒間不求同生只求同死" class="headerlink" title="5. 兄弟執行緒間不求同生只求同死"></a>5. 兄弟執行緒間不求同生只求同死</h2><p>在Goroutine主要的基本用法與應用，在上述都可以做到。在這一章節主要是介紹一些進階用法” Context”。這種用法主要是在go 1.7之後才正式被收入官方套件中，使得更方便的控制Goroutine的生命週期。</p>
 <p>主要提供以下幾種方法:</p>
 <ol>
@@ -394,8 +388,7 @@ func main() &#123;
 &#125;
 </code></pre>
 <p>example 7:兄弟執行緒間不求同生只求同死</p>
-<p><img src="https://miro.medium.com/max/561/1*HlQ6vJ1LlEPEanbvy_2sJw.png" alt="img"></p>
-<p>example 7 執行結果</p>
+<p><img src="https://miro.medium.com/max/561/1*HlQ6vJ1LlEPEanbvy_2sJw.png" alt="example 7 執行結果"></p>
 <blockquote>
 <p><strong>Tips:</strong><br>context.Background(): 取得Context的實體<br>context.WithDeadline(Context實體, 時間): 使用WithDeadline並設定好時間<br>Cancel 則是在程式結束前需要被使用，否則會有memory leak的錯誤訊息</p>
 </blockquote>

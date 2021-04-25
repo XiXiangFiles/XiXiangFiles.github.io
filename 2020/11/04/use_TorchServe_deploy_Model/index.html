@@ -84,8 +84,8 @@
     </header>
 
     <div class="post-content"><p>TorchServe 是 PyTorch 提供給開發者部署 models 的工具（實驗階段）。也就是說開發者不用再寫 HTTP 服務去部署，直接使用 TorchServe 工具就可以了！</p>
-<p><strong>系統架構</strong><br><strong>TorchServe 主要提供兩個 API：</strong>Management API 是用來設定 TorchServe 服務<strong>，如註冊新的 Model 服務、卸載 Model 服務，監看 TorchServe 的狀態；</strong>Inference API 用來取得辨識結果**。</p>
-<p><img src="https://cdn-images-1.medium.com/max/800/1*w2xTsxjj1aimOsVIVZPw0w.png" alt="img"></p>
+<p><strong>系統架構</strong><br>TorchServe 主要提供兩個 API：<strong>Management API 是用來設定 TorchServe 服務</strong>，如註冊新的 Model 服務、卸載 Model 服務，監看 TorchServe 的狀態；<strong>Inference API 用來取得辨識結果</strong>。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*w2xTsxjj1aimOsVIVZPw0w.png" alt="系統架構"></p>
 <ul>
 <li>Frontend：指的是 request batching + <strong>Inference API Handler。</strong>request batching 是由 <strong>Management API</strong> 設定；<strong>Inference API Handler</strong> 則是由開發者自行撰寫</li>
 <li>Worker Process：指的是一組辨識程式的運行(trained model + model handler)，概念像是 Thread，可由 <strong>Management API 進行設定運行的數量</strong>。</li>
@@ -94,7 +94,7 @@
 </ul>
 <p><strong>使用指南</strong><br>使用 TorchServe 需要準備三個檔案：Trained Model、Inference handler 、model Handler，將這三個東西使用 TorchServe Archiver 將其壓縮成 .mar 檔案。最後將 .mar 檔放入 TorchServe 裡，註冊後就佈署！</p>
 <p>TorchServe 預設 8080 port 用於 inference ; 8081 port 用於管理 TorchServe 如下圖：</p>
-<p><img src="https://cdn-images-1.medium.com/max/800/1*HyvdEPTr16G-FCxPOlP7qQ.png" alt="img"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*HyvdEPTr16G-FCxPOlP7qQ.png" alt="TorchServe"></p>
 <p><a target="_blank" rel="noopener" href="https://github.com/pytorch/serve"><strong>舉例：以官方 densenet161 Example 為例</strong></a></p>
 <ol>
 <li>開始之前必須先安裝 <strong>TorchServe</strong>、<strong>torch-model-archiver，</strong>一個是用來跑 TorchServe 服務的，另一個是用來壓縮 Trained Model、Inference handler 、model Handler 的套件。</li>
@@ -130,7 +130,7 @@ curl http://127.0.0.1:8080/predictions/densenet161 -T kitten.jpg
 <p><img src="https://cdn-images-1.medium.com/max/800/1*uubZ3uHv4SRGqEXQ7WtFKw.png" alt="img"></p>
 <p><img src="https://cdn-images-1.medium.com/max/800/1*9Qy_s7HLw91_yo0SsE2A0Q.png" alt="img"></p>
 <p>因此當想要進行 debug 的時候，<strong>要切到 /tmp 資料夾中使用 python3 指令執行</strong>，如果沒問題，理論上 TorchServe 就能夠成功運作。</p>
-<p><strong>常用Management API 介紹<br><strong>在這邊分享一些過去部署TorchServe常用用的一些API，首先在註冊的時候會不知道目前到底有沒有抓到Trained model?這時候可以使用</strong>List models API</strong></p>
+<p><strong>常用Management API 介紹</strong><br>在這邊分享一些過去部署TorchServe常用用的一些API，首先在註冊的時候會不知道目前到底有沒有抓到Trained model?這時候可以使用<strong>List models API</strong></p>
 <pre><code>curl &quot;http://localhost:8081/models&quot;
 </code></pre>
 <p><img src="https://cdn-images-1.medium.com/max/800/1*i-I6Fn25WH80ae5exdK5mg.png" alt="img"></p>
@@ -143,7 +143,7 @@ curl http://127.0.0.1:8080/predictions/densenet161 -T kitten.jpg
 curl -v -X PUT “http://localhost:8081/models/feature_extractor?min_worker=3&quot;
 </code></pre>
 <p><img src="https://cdn-images-1.medium.com/max/800/1*VFxqC8ig2eHIMqA_M6VyYA.png" alt="img"></p>
-<p><strong>Inference handler撰寫經驗談：<br><strong>inference handler文件相當的簡潔，在撰寫handler的時候可參考下面程式碼，</strong>大致上每個區塊的function要杜撰什麼都記載註解上</strong>。此外撰寫完，註冊進去TorchServe後<strong>要能夠在/tmp中找到，同時是可直接執行的狀態</strong>，若不是則需要繼續debug。</p>
+<p><strong>Inference handler撰寫經驗談</strong>：<br>inference handler文件相當的簡潔，在撰寫handler的時候可參考下面程式碼，<strong>大致上每個區塊的function要杜撰什麼都記載註解上</strong>。此外撰寫完，註冊進去TorchServe後<strong>要能夠在/tmp中找到，同時是可直接執行的狀態</strong>，若不是則需要繼續debug。</p>
 <p><strong>Debug有雷請小心</strong>：</p>
 <ol>
 <li>輸出只吃JSON格式</li>

@@ -94,9 +94,9 @@
 <blockquote>
 <p><a target="_blank" rel="noopener" href="https://github.com/webrtc/apprtc">AppRTC Repo is here!</a><br><a target="_blank" rel="noopener" href="https://www.w3.org/TR/webrtc/#peer-to-peer-connections">WebRTC mechanism</a></p>
 </blockquote>
-<p>**Manipulate AppRTC<br>**First, one client joins a room and waiting for the other client to join. At once, there are two clients in the room, they can chat with each other.</p>
+<p><strong>Manipulate AppRTC</strong><br>First, one client joins a room and waiting for the other client to join. At once, there are two clients in the room, they can chat with each other.</p>
 <p><img src="https://cdn-images-1.medium.com/max/800/1*SBGnOfjTNDU7TciZLndoLg.gif" alt="img"></p>
-<p>**The AppRTC Implement (not include p2p mechanism)<br>**We divided into two part to illustrate AppRTC work. The first client join room and the second client join room.</p>
+<p><strong>The AppRTC Implement (not include p2p mechanism)</strong><br>We divided into two part to illustrate AppRTC work. The first client join room and the second client join room.</p>
 <p>The first client join room:</p>
 <ol>
 <li>Get / for getting AppRTC home page.</li>
@@ -109,7 +109,7 @@
 <p>The second client join room:</p>
 <ol>
 <li>Get / for getting AppRTC home page.</li>
-<li>Post /join/:room_id for registry room id into AppRTC and getting a Client ID to registry Signal Server and <strong>first client p2p connection cache(sdp, (ICE)</strong> <strong>candidate)</strong></li>
+<li>Post /join/:room_id for registry room id into AppRTC and getting a Client ID to registry Signal Server and <strong>first client p2p connection cache(sdp, (ICE candidate)</strong></li>
 <li>According to cache generates a new p2p connection message and send it by WebSocket to the first client</li>
 <li>Two clients communicate with each other through p2p.</li>
 </ol>
@@ -131,7 +131,7 @@
 </tr>
 <tr>
 <td>2</td>
-<td>{cmd: “send”, “roomid”:””, “clientid”: “”, “msg”:”<em><strong>JSON string</strong></em>“}</td>
+<td>{cmd: “send”, “roomid”:””, “clientid”: “”, “msg”:”<strong>JSON string</strong>“}</td>
 <td>send message to the other client</td>
 </tr>
 </tbody></table>
@@ -149,7 +149,7 @@
 <td>delete collider room status</td>
 </tr>
 </tbody></table>
-<p>**Conclusion<br>**In the AppRTC demo application, it follows <a target="_blank" rel="noopener" href="https://medium.com/%E5%BE%AE%E5%B3%AF%E9%A3%9B%E7%BF%94/broker%E5%88%B0%E5%BA%95%E6%98%AF%E4%BB%80%E9%BA%BC-707ddc05268a">Broker Architecture</a> to coordinate p2p message exchange. Though the key-point is not <strong>the sdp and (ICE) candidate</strong> message exchanged method, but it still important to manage the exchange process. So if you read AppRTC open source, this article can help you modify this project.</p>
+<p><strong>Conclusion</strong><br>In the AppRTC demo application, it follows <a target="_blank" rel="noopener" href="https://medium.com/%E5%BE%AE%E5%B3%AF%E9%A3%9B%E7%BF%94/broker%E5%88%B0%E5%BA%95%E6%98%AF%E4%BB%80%E9%BA%BC-707ddc05268a">Broker Architecture</a> to coordinate p2p message exchange. Though the key-point is not <strong>the sdp and (ICE) candidate</strong> message exchanged method, but it still important to manage the exchange process. So if you read AppRTC open source, this article can help you modify this project.</p>
 
       </div>
       <div class="post-copyright">

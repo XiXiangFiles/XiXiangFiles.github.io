@@ -86,14 +86,14 @@
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#IoT-%E6%9E%B6%E6%A7%8B%E9%9D%A2%E8%87%A8%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7%E6%8C%91%E6%88%B0-%E5%A6%82%E4%B8%8B%E5%9C%962-Types-of-attacks-on-IoT%EF%BC%89"><span class="toc-text">IoT 架構面臨的安全性挑戰 (如下圖2: Types of attacks on IoT）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IoT-%E5%82%B3%E7%B5%B1%E6%9E%B6%E6%A7%8B-Fog-Computing"><span class="toc-text">IoT 傳統架構- Fog Computing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%82%B3%E7%B5%B1%E6%9E%B6%E6%A7%8B%E6%87%89%E7%94%A8%E6%96%BCIoT%E5%A0%B4%E5%9F%9F"><span class="toc-text">傳統架構應用於IoT場域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%80%E5%A1%8A%E9%8F%88%E6%87%89%E7%94%A8%E6%96%BCIoT%E5%A0%B4%E5%9F%9F"><span class="toc-text">區塊鏈應用於IoT場域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B8%BD%E7%B5%90"><span class="toc-text">總結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-text">參考資料</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#IoT-%E6%9E%B6%E6%A7%8B%E9%9D%A2%E8%87%A8%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7%E6%8C%91%E6%88%B0"><span class="toc-text">IoT 架構面臨的安全性挑戰</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IoT-%E5%82%B3%E7%B5%B1%E6%9E%B6%E6%A7%8B-Fog-Computing"><span class="toc-text">IoT 傳統架構- Fog Computing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%82%B3%E7%B5%B1%E6%9E%B6%E6%A7%8B%E6%87%89%E7%94%A8%E6%96%BCIoT%E5%A0%B4%E5%9F%9F"><span class="toc-text">傳統架構應用於IoT場域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%80%E5%A1%8A%E9%8F%88%E6%87%89%E7%94%A8%E6%96%BCIoT%E5%A0%B4%E5%9F%9F"><span class="toc-text">區塊鏈應用於IoT場域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B8%BD%E7%B5%90"><span class="toc-text">總結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-text">參考資料</span></a></li></ol>
     </div>
-  </div><div class="post-content"><p><strong>本篇會列舉出 IoT可能面對的安全性議題，並且闡述傳統和區塊鏈架構之間的差別與使用時機。</strong>*</p>
+  </div><div class="post-content"><p><strong>本篇會列舉出 IoT可能面對的安全性議題，並且闡述傳統和區塊鏈架構之間的差別與使用時機。</strong></p>
 <p>物聯網的興起已經是種趨勢，2022 年全球可能會有20.4 billion物聯網裝置，也因著區塊鏈技術的興起，解決許多傳統必須考慮的安全性議題。尤其在middleware layer、network layer 的攻擊。</p>
 <p>在過去物聯網裝置都是直接連上雲端裝置開始，漸漸的使用 fog架構因應同性質裝置的互連。而未來的使用場景即將是不同種類的裝置互連的使用場景。如圖1: Present IoT Architecture。</p>
-<p><img src="https://cdn-images-1.medium.com/max/800/1*mR74mEpkEnUECXDYlA1KNA.png" alt="img"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*mR74mEpkEnUECXDYlA1KNA.png" alt="Present IoT Architecture"></p>
 <p>在未來的使用場景，各類裝置間的互連的需求下，因此在安全性議題也日益重要。本篇將會探討近年提出的「區塊鏈應用於物聯網的架構」，是否可能為未來的主流架構。</p>
-<h2 id="IoT-架構面臨的安全性挑戰-如下圖2-Types-of-attacks-on-IoT）"><a href="#IoT-架構面臨的安全性挑戰-如下圖2-Types-of-attacks-on-IoT）" class="headerlink" title="IoT 架構面臨的安全性挑戰 (如下圖2: Types of attacks on IoT）"></a>IoT 架構面臨的安全性挑戰 (如下圖2: Types of attacks on IoT）</h2><p><img src="https://cdn-images-1.medium.com/max/800/1*GqnW3fWy7-syO7f60zcEvw.png" alt="img"></p>
+<h2 id="IoT-架構面臨的安全性挑戰"><a href="#IoT-架構面臨的安全性挑戰" class="headerlink" title="IoT 架構面臨的安全性挑戰"></a>IoT 架構面臨的安全性挑戰</h2><p><img src="https://cdn-images-1.medium.com/max/800/1*GqnW3fWy7-syO7f60zcEvw.png" alt="Types of attacks on IoT"></p>
 <ul>
 <li>Sensor layer: 指的是感測器層</li>
 </ul>
@@ -280,7 +280,7 @@
 </li>
 </ul>
 <h2 id="IoT-傳統架構-Fog-Computing"><a href="#IoT-傳統架構-Fog-Computing" class="headerlink" title="IoT 傳統架構- Fog Computing"></a>IoT 傳統架構- Fog Computing</h2><p>Fog 的概念很像是Cloud，在這個架構中，所有的device 不會直接上雲，而是透過Fog再把資料傳上雲。而Fog主要提供的服務就是雲的服務，但只是為了管理方便多了Fog當中繼。</p>
-<p><img src="https://cdn-images-1.medium.com/max/800/1*r3ZkahkqSdRtiQkGX6KoqA.png" alt="img"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*r3ZkahkqSdRtiQkGX6KoqA.png" alt="Fog Computing"></p>
 <p><strong>Pros:</strong></p>
 <ol>
 <li>防止資料被攔截、減少cloud 負擔(只將必要的資料上傳cloud)</li>
@@ -295,7 +295,7 @@
 <li><strong>IoT with Blockchain Architecture</strong></li>
 </ul>
 <p>Blockchain 是透過分散式帳本的技術進行同步資料。其中該技術的特點是帳本的節點數夠多的時候，幾乎可以確保鏈上的資料不會被竄改。這種架構就是將裝置與區塊鏈連接，選擇性的將資料存放在鏈上，使得每一台裝置都自動的同步資料與達到真分散式架構</p>
-<p><img src="https://cdn-images-1.medium.com/max/800/1*iVKScNWt_RtmVUbZNFHsqQ.png" alt="img"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*iVKScNWt_RtmVUbZNFHsqQ.png" alt="IoT with Blockchain Architecture"></p>
 <p><strong>Pros:</strong></p>
 <ol>
 <li>資料可以以區塊鍊作為儲存的中心，並在節點數量夠的情況下保證其安全</li>

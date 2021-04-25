@@ -156,7 +156,7 @@ func main() &#123;
 <p>執行結果：</p>
 <p><img src="https://cdn-images-1.medium.com/max/800/1*bcNrwG5CpKdGNE-a_CY27g.png" alt="img"></p>
 <blockquote>
-<p>v1.11之後為了解決套件管理的問題，官方出現了go mod的工具，並且v1.11、v1.12可以共存GOPATH的存在。然而在1.13之後GOPATH跟go mod**兩者是不能並存的 (GOPATH不可指向有go.mod 的資料夾)**。</p>
+<p>v1.11之後為了解決套件管理的問題，官方出現了go mod的工具，並且v1.11、v1.12可以共存GOPATH的存在。然而在1.13之後GOPATH跟go mod<strong>兩者是不能並存的 (GOPATH不可指向有go.mod 的資料夾)</strong> 。</p>
 </blockquote>
 <h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><p>在撰寫Golang 專案的時候，盡量的使用go mod，盡量不修改GOPATH來開發。因為go mod會幫助開發者紀錄相依的模組，方便之後部署、交付程式碼。</p>
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><p><a target="_blank" rel="noopener" href="https://blog.golang.org/using-go-modules">https://blog.golang.org/using-go-modules</a></p>
