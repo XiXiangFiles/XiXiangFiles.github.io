@@ -1,0 +1,32 @@
+{
+  "unversionedId": "blockchain/2021.03.07.blockchain_issues",
+  "id": "blockchain/2021.03.07.blockchain_issues",
+  "title": "區塊鏈物聯網架構 解決哪些安全性議題？",
+  "description": "本篇會列舉出 IoT可能面對的安全性議題，並且闡述傳統和區塊鏈架構之間的差別與使用時機。. “區塊鏈物聯網架構: 解決哪些安全性議題？”",
+  "source": "@site/docs/blockchain/2021.03.07.blockchain_issues.md",
+  "sourceDirName": "blockchain",
+  "slug": "/blockchain/2021.03.07.blockchain_issues",
+  "permalink": "/docs/blockchain/2021.03.07.blockchain_issues",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "title": "區塊鏈物聯網架構 解決哪些安全性議題？",
+    "description": "本篇會列舉出 IoT可能面對的安全性議題，並且闡述傳統和區塊鏈架構之間的差別與使用時機。. “區塊鏈物聯網架構: 解決哪些安全性議題？”",
+    "keywords": [
+      "blockchain",
+      "securitys"
+    ],
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "[深入淺出MQTT]:  v3.1.1與v5 的差異",
+    "permalink": "/docs/broker/2021.07.12.mqtt5_vs_3"
+  },
+  "next": {
+    "title": "Kubernetes 超入門",
+    "permalink": "/docs/k8s/2022.02.14.shorttalk_k8s"
+  }
+}

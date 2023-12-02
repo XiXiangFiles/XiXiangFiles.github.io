@@ -1,0 +1,31 @@
+{
+  "unversionedId": "k8s/2022.02.14.shorttalk_k8s",
+  "id": "k8s/2022.02.14.shorttalk_k8s",
+  "title": "Kubernetes 超入門",
+  "description": "Kubernetes(k8s) 是一種讓使用者管理Cluster 的一種工具，在各雲端平台如Azure, GKE, AWS...等等都支援，本文章提供kubernetes 基礎觀念。",
+  "source": "@site/docs/k8s/2022.02.14.shorttalk_k8s.md",
+  "sourceDirName": "k8s",
+  "slug": "/k8s/2022.02.14.shorttalk_k8s",
+  "permalink": "/docs/k8s/2022.02.14.shorttalk_k8s",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "title": "Kubernetes 超入門",
+    "description": "Kubernetes(k8s) 是一種讓使用者管理Cluster 的一種工具，在各雲端平台如Azure, GKE, AWS...等等都支援，本文章提供kubernetes 基礎觀念。",
+    "keywords": [
+      "k8s"
+    ],
+    "sidebar_position": 3
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "區塊鏈物聯網架構 解決哪些安全性議題？",
+    "permalink": "/docs/blockchain/2021.03.07.blockchain_issues"
+  },
+  "next": {
+    "title": "Kubernetes 架構",
+    "permalink": "/docs/k8s/2022.02.19.k8s_structure"
+  }
+}

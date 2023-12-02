@@ -1,0 +1,34 @@
+{
+  "unversionedId": "k8s/2023.09.17.raspberry_pi_with_k3d",
+  "id": "k8s/2023.09.17.raspberry_pi_with_k3d",
+  "title": "使用 K3d 在 要在 Raspberry Pi4 筆記",
+  "description": "介紹有關於 k3d 如何在raspberry pi跑起來與設定的小筆記",
+  "source": "@site/docs/k8s/2023.09.17.raspberry_pi_with_k3d.md",
+  "sourceDirName": "k8s",
+  "slug": "/k8s/2023.09.17.raspberry_pi_with_k3d",
+  "permalink": "/docs/k8s/2023.09.17.raspberry_pi_with_k3d",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 5,
+  "frontMatter": {
+    "title": "使用 K3d 在 要在 Raspberry Pi4 筆記",
+    "description": "介紹有關於 k3d 如何在raspberry pi跑起來與設定的小筆記",
+    "keywords": [
+      "raspberry pi",
+      "k3d",
+      "k8s",
+      "linux"
+    ],
+    "sidebar_position": 5
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "分散式系統: 現代軟體架構與設計考量",
+    "permalink": "/docs/k8s/2022.04.30.distribution_forces"
+  },
+  "next": {
+    "title": "從 RFC 規格書觀點解析 OAuth 2.0",
+    "permalink": "/docs/security/2020.12.20.auth_2_tutorial"
+  }
+}

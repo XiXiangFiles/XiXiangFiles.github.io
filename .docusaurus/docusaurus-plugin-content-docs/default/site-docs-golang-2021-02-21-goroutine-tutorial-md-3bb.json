@@ -1,0 +1,33 @@
+{
+  "unversionedId": "golang/2021.02.21.goroutine_tutorial",
+  "id": "golang/2021.02.21.goroutine_tutorial",
+  "title": "Golang Goroutine Concurrency多執行緒淺談",
+  "description": "下文提供範例並詳述channel, context, sync.WaitGroup, Select, sync.Lock 的用法",
+  "source": "@site/docs/golang/2021.02.21.goroutine_tutorial.md",
+  "sourceDirName": "golang",
+  "slug": "/golang/2021.02.21.goroutine_tutorial",
+  "permalink": "/docs/golang/2021.02.21.goroutine_tutorial",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "title": "Golang Goroutine Concurrency多執行緒淺談",
+    "description": "下文提供範例並詳述channel, context, sync.WaitGroup, Select, sync.Lock 的用法",
+    "keywords": [
+      "golang",
+      "goruntine",
+      "thread"
+    ],
+    "sidebar_position": 4
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Golang go mod 入門",
+    "permalink": "/docs/golang/2020.12.06.go_mod_tutorial"
+  },
+  "next": {
+    "title": "[淺談]-NoSQL資料庫怎麼選",
+    "permalink": "/docs/database/2021.04.18.smalltalk_nosql"
+  }
+}

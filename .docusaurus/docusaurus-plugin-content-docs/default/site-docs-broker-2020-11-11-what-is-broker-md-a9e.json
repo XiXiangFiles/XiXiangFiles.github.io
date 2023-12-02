@@ -1,0 +1,32 @@
+{
+  "unversionedId": "broker/2020.11.11.what_is_broker",
+  "id": "broker/2020.11.11.what_is_broker",
+  "title": "Broker 到底是什麼",
+  "description": "市面上 Broker 百百種，最有名的應該是 message Queue，如 MQTT、RabbitMQ、Kafka等。可是很少人知道Broker其實指軟體設計的架構。事實上很多時候在撰寫的軟體的時候也寫了Broker 只是不知道它是broker。",
+  "source": "@site/docs/broker/2020.11.11.what_is_broker.md",
+  "sourceDirName": "broker",
+  "slug": "/broker/2020.11.11.what_is_broker",
+  "permalink": "/docs/broker/2020.11.11.what_is_broker",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "title": "Broker 到底是什麼",
+    "description": "市面上 Broker 百百種，最有名的應該是 message Queue，如 MQTT、RabbitMQ、Kafka等。可是很少人知道Broker其實指軟體設計的架構。事實上很多時候在撰寫的軟體的時候也寫了Broker 只是不知道它是broker。",
+    "keywords": [
+      "broker",
+      "architecture pattern"
+    ],
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "09.24.introduce_vvl",
+    "permalink": "/docs/patterns/09.24.introduce_vvl"
+  },
+  "next": {
+    "title": "[深入淺出MQTT]:  v3.1.1與v5 的差異",
+    "permalink": "/docs/broker/2021.07.12.mqtt5_vs_3"
+  }
+}

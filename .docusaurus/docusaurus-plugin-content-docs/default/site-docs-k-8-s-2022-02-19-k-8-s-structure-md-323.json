@@ -1,0 +1,31 @@
+{
+  "unversionedId": "k8s/2022.02.19.k8s_structure",
+  "id": "k8s/2022.02.19.k8s_structure",
+  "title": "Kubernetes 架構",
+  "description": "K8s 是一套 Ops (Operation) 的工具，DevOps 指的是開發部門與維運部門的整合(Dev + Ops)，然而由於實務上，往往開發速度 > 維運部署的速度，因此 DevOps 的議題往往是產品開發的重點。GitOps 則是自動化部屬與整合的產物，搭配 Git Repository 工具使用，快速的將產品部署於 K8s cluster中。",
+  "source": "@site/docs/k8s/2022.02.19.k8s_structure.md",
+  "sourceDirName": "k8s",
+  "slug": "/k8s/2022.02.19.k8s_structure",
+  "permalink": "/docs/k8s/2022.02.19.k8s_structure",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "title": "Kubernetes 架構",
+    "description": "K8s 是一套 Ops (Operation) 的工具，DevOps 指的是開發部門與維運部門的整合(Dev + Ops)，然而由於實務上，往往開發速度 > 維運部署的速度，因此 DevOps 的議題往往是產品開發的重點。GitOps 則是自動化部屬與整合的產物，搭配 Git Repository 工具使用，快速的將產品部署於 K8s cluster中。",
+    "keywords": [
+      "k8s"
+    ],
+    "sidebar_position": 3
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Kubernetes 超入門",
+    "permalink": "/docs/k8s/2022.02.14.shorttalk_k8s"
+  },
+  "next": {
+    "title": "K8s 在 DevOps 中的作用",
+    "permalink": "/docs/k8s/2022.03.20.k8s.devops"
+  }
+}

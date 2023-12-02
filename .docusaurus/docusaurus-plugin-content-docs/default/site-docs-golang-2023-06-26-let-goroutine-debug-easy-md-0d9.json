@@ -1,0 +1,36 @@
+{
+  "unversionedId": "golang/2023.06.26.let_goroutine_debug_easy",
+  "id": "golang/2023.06.26.let_goroutine_debug_easy",
+  "title": "讓 Goroutine Debug 變得更簡單",
+  "description": "提供一些經驗談，讓你在 gorontine debug 更容易",
+  "source": "@site/docs/golang/2023.06.26.let_goroutine_debug_easy.md",
+  "sourceDirName": "golang",
+  "slug": "/golang/2023.06.26.let_goroutine_debug_easy",
+  "permalink": "/docs/golang/2023.06.26.let_goroutine_debug_easy",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "title": "讓 Goroutine Debug 變得更簡單",
+    "description": "提供一些經驗談，讓你在 gorontine debug 更容易",
+    "keywords": [
+      "golang",
+      "goruntine",
+      "thread",
+      "OOM",
+      "garbage recycle",
+      "deadlock"
+    ],
+    "sidebar_position": 3
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Golang 進階用法",
+    "permalink": "/docs/golang/2021.10.23.advance_golang"
+  },
+  "next": {
+    "title": "Golang go mod 入門",
+    "permalink": "/docs/golang/2020.12.06.go_mod_tutorial"
+  }
+}

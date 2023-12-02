@@ -1,0 +1,396 @@
+{
+  "pluginId": "default",
+  "version": "current",
+  "label": "Next",
+  "banner": null,
+  "badge": false,
+  "noIndex": false,
+  "className": "docs-version-current",
+  "isLast": true,
+  "docsSidebars": {
+    "tutorialSidebar": [
+      {
+        "type": "link",
+        "label": "Jerry Wang Blog",
+        "href": "/docs/intro",
+        "docId": "intro"
+      },
+      {
+        "type": "category",
+        "label": "Golang",
+        "collapsible": true,
+        "collapsed": true,
+        "items": [
+          {
+            "type": "link",
+            "label": "Golang 進階用法",
+            "href": "/docs/golang/2021.10.23.advance_golang",
+            "docId": "golang/2021.10.23.advance_golang"
+          },
+          {
+            "type": "link",
+            "label": "讓 Goroutine Debug 變得更簡單",
+            "href": "/docs/golang/2023.06.26.let_goroutine_debug_easy",
+            "docId": "golang/2023.06.26.let_goroutine_debug_easy"
+          },
+          {
+            "type": "link",
+            "label": "Golang go mod 入門",
+            "href": "/docs/golang/2020.12.06.go_mod_tutorial",
+            "docId": "golang/2020.12.06.go_mod_tutorial"
+          },
+          {
+            "type": "link",
+            "label": "Golang Goroutine Concurrency多執行緒淺談",
+            "href": "/docs/golang/2021.02.21.goroutine_tutorial",
+            "docId": "golang/2021.02.21.goroutine_tutorial"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Database",
+        "collapsible": true,
+        "collapsed": true,
+        "items": [
+          {
+            "type": "link",
+            "label": "[淺談]-NoSQL資料庫怎麼選",
+            "href": "/docs/database/2021.04.18.smalltalk_nosql",
+            "docId": "database/2021.04.18.smalltalk_nosql"
+          },
+          {
+            "type": "link",
+            "label": "How do pick the database more correctly",
+            "href": "/docs/database/2022.09.23.how_pick_database",
+            "docId": "database/2022.09.23.how_pick_database"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "HTTP",
+        "collapsible": true,
+        "collapsed": true,
+        "items": [
+          {
+            "type": "link",
+            "label": "Overview The WebSocket Mechanism",
+            "href": "/docs/http/2020.11.25.overview_the_websocket_mechanism",
+            "docId": "http/2020.11.25.overview_the_websocket_mechanism"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Pattern",
+        "collapsible": true,
+        "collapsed": true,
+        "items": [
+          {
+            "type": "link",
+            "label": "Domain Model: 從無到有規劃新的服務",
+            "href": "/docs/patterns/2021.09.04.from_mod_to_structure",
+            "docId": "patterns/2021.09.04.from_mod_to_structure"
+          },
+          {
+            "type": "link",
+            "label": "Domain Model: 從無到有規劃新的服務",
+            "href": "/docs/patterns/2021.12.31.cqrs",
+            "docId": "patterns/2021.12.31.cqrs"
+          },
+          {
+            "type": "link",
+            "label": "Backend System in Microservice Architecture: Where Does data store",
+            "href": "/docs/patterns/2022.06.17.how_microservice_data_store",
+            "docId": "patterns/2022.06.17.how_microservice_data_store"
+          },
+          {
+            "type": "link",
+            "label": "Ambassador pattern with Shared Database Pattern",
+            "href": "/docs/patterns/2022.11.16.ambassador_pattern",
+            "docId": "patterns/2022.11.16.ambassador_pattern"
+          },
+          {
+            "type": "link",
+            "label": "09.24.introduce_vvl",
+            "href": "/docs/patterns/09.24.introduce_vvl",
+            "docId": "patterns/09.24.introduce_vvl"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Broker",
+        "collapsible": true,
+        "collapsed": true,
+        "items": [
+          {
+            "type": "link",
+            "label": "Broker 到底是什麼",
+            "href": "/docs/broker/2020.11.11.what_is_broker",
+            "docId": "broker/2020.11.11.what_is_broker"
+          },
+          {
+            "type": "link",
+            "label": "[深入淺出MQTT]:  v3.1.1與v5 的差異",
+            "href": "/docs/broker/2021.07.12.mqtt5_vs_3",
+            "docId": "broker/2021.07.12.mqtt5_vs_3"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Blockchain",
+        "collapsible": true,
+        "collapsed": true,
+        "items": [
+          {
+            "type": "link",
+            "label": "區塊鏈物聯網架構 解決哪些安全性議題？",
+            "href": "/docs/blockchain/2021.03.07.blockchain_issues",
+            "docId": "blockchain/2021.03.07.blockchain_issues"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Kubernetes",
+        "collapsible": true,
+        "collapsed": true,
+        "items": [
+          {
+            "type": "link",
+            "label": "Kubernetes 超入門",
+            "href": "/docs/k8s/2022.02.14.shorttalk_k8s",
+            "docId": "k8s/2022.02.14.shorttalk_k8s"
+          },
+          {
+            "type": "link",
+            "label": "Kubernetes 架構",
+            "href": "/docs/k8s/2022.02.19.k8s_structure",
+            "docId": "k8s/2022.02.19.k8s_structure"
+          },
+          {
+            "type": "link",
+            "label": "K8s 在 DevOps 中的作用",
+            "href": "/docs/k8s/2022.03.20.k8s.devops",
+            "docId": "k8s/2022.03.20.k8s.devops"
+          },
+          {
+            "type": "link",
+            "label": "分散式系統: 現代軟體架構與設計考量",
+            "href": "/docs/k8s/2022.04.30.distribution_forces",
+            "docId": "k8s/2022.04.30.distribution_forces"
+          },
+          {
+            "type": "link",
+            "label": "使用 K3d 在 要在 Raspberry Pi4 筆記",
+            "href": "/docs/k8s/2023.09.17.raspberry_pi_with_k3d",
+            "docId": "k8s/2023.09.17.raspberry_pi_with_k3d"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Security",
+        "collapsible": true,
+        "collapsed": true,
+        "items": [
+          {
+            "type": "link",
+            "label": "從 RFC 規格書觀點解析 OAuth 2.0",
+            "href": "/docs/security/2020.12.20.auth_2_tutorial",
+            "docId": "security/2020.12.20.auth_2_tutorial"
+          },
+          {
+            "type": "link",
+            "label": "HTTP Token 使用方式: Basic Token v.s Bearer Token",
+            "href": "/docs/security/2021.05.01.different_from_bearer_and_basic_token",
+            "docId": "security/2021.05.01.different_from_bearer_and_basic_token"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Torch",
+        "collapsible": true,
+        "collapsed": true,
+        "items": [
+          {
+            "type": "link",
+            "label": "使用 TorchServe 部署 Model",
+            "href": "/docs/torch/2020.11.04.torch_server_tutorial",
+            "docId": "torch/2020.11.04.torch_server_tutorial"
+          }
+        ]
+      },
+      {
+        "type": "category",
+        "label": "WebRTC",
+        "collapsible": true,
+        "collapsed": true,
+        "items": [
+          {
+            "type": "link",
+            "label": "How do AppRTC work in WebRTC mechanism?",
+            "href": "/docs/web_rtc/2020.11.19.apprtc_tutorial",
+            "docId": "web_rtc/2020.11.19.apprtc_tutorial"
+          }
+        ]
+      }
+    ]
+  },
+  "docs": {
+    "blockchain/2021.03.07.blockchain_issues": {
+      "id": "blockchain/2021.03.07.blockchain_issues",
+      "title": "區塊鏈物聯網架構 解決哪些安全性議題？",
+      "description": "本篇會列舉出 IoT可能面對的安全性議題，並且闡述傳統和區塊鏈架構之間的差別與使用時機。. “區塊鏈物聯網架構: 解決哪些安全性議題？”",
+      "sidebar": "tutorialSidebar"
+    },
+    "broker/2020.11.11.what_is_broker": {
+      "id": "broker/2020.11.11.what_is_broker",
+      "title": "Broker 到底是什麼",
+      "description": "市面上 Broker 百百種，最有名的應該是 message Queue，如 MQTT、RabbitMQ、Kafka等。可是很少人知道Broker其實指軟體設計的架構。事實上很多時候在撰寫的軟體的時候也寫了Broker 只是不知道它是broker。",
+      "sidebar": "tutorialSidebar"
+    },
+    "broker/2021.07.12.mqtt5_vs_3": {
+      "id": "broker/2021.07.12.mqtt5_vs_3",
+      "title": "[深入淺出MQTT]:  v3.1.1與v5 的差異",
+      "description": "MQTT v3.1.1 與 v5 完全相容，且提供許多Cluster 所需要的功能，如Shared Subscriptions、 User Properties等實用功能，且不會因為新增加功能造成效能低落的問題。",
+      "sidebar": "tutorialSidebar"
+    },
+    "database/2021.04.18.smalltalk_nosql": {
+      "id": "database/2021.04.18.smalltalk_nosql",
+      "title": "[淺談]-NoSQL資料庫怎麼選",
+      "description": "NoSQL是目前在雲端服務很常使用的一種型態的資料庫，僅具備BASE原則。然而在市場上有許多種類的NoSQL，如MongoDB、Redis、HBase...等，本文章則從Scalability、Sharding、Replication的角度切入，並同時帶入CAP理論進行分類。",
+      "sidebar": "tutorialSidebar"
+    },
+    "database/2022.09.23.how_pick_database": {
+      "id": "database/2022.09.23.how_pick_database",
+      "title": "How do pick the database more correctly",
+      "description": "There are variety databases that we can choose. So that, many developers choose the database by feeling or by popularity. This article give the developer some advices to choose database by some criterial.",
+      "sidebar": "tutorialSidebar"
+    },
+    "golang/2020.12.06.go_mod_tutorial": {
+      "id": "golang/2020.12.06.go_mod_tutorial",
+      "title": "Golang go mod 入門",
+      "description": "主要屆是有關於 go mod 的入門指南",
+      "sidebar": "tutorialSidebar"
+    },
+    "golang/2021.02.21.goroutine_tutorial": {
+      "id": "golang/2021.02.21.goroutine_tutorial",
+      "title": "Golang Goroutine Concurrency多執行緒淺談",
+      "description": "下文提供範例並詳述channel, context, sync.WaitGroup, Select, sync.Lock 的用法",
+      "sidebar": "tutorialSidebar"
+    },
+    "golang/2021.10.23.advance_golang": {
+      "id": "golang/2021.10.23.advance_golang",
+      "title": "Golang 進階用法",
+      "description": "介紹有關於 golang 中的 reflection, interface, tag 等等, 以及有關於 uintptr, unsafe.Pointer 的小知識",
+      "sidebar": "tutorialSidebar"
+    },
+    "golang/2023.06.26.let_goroutine_debug_easy": {
+      "id": "golang/2023.06.26.let_goroutine_debug_easy",
+      "title": "讓 Goroutine Debug 變得更簡單",
+      "description": "提供一些經驗談，讓你在 gorontine debug 更容易",
+      "sidebar": "tutorialSidebar"
+    },
+    "http/2020.11.25.overview_the_websocket_mechanism": {
+      "id": "http/2020.11.25.overview_the_websocket_mechanism",
+      "title": "Overview The WebSocket Mechanism",
+      "description": "This article introduces What’s the Websocket and how it works.",
+      "sidebar": "tutorialSidebar"
+    },
+    "intro": {
+      "id": "intro",
+      "title": "Jerry Wang Blog",
+      "description": "文章：",
+      "sidebar": "tutorialSidebar"
+    },
+    "k8s/2022.02.14.shorttalk_k8s": {
+      "id": "k8s/2022.02.14.shorttalk_k8s",
+      "title": "Kubernetes 超入門",
+      "description": "Kubernetes(k8s) 是一種讓使用者管理Cluster 的一種工具，在各雲端平台如Azure, GKE, AWS...等等都支援，本文章提供kubernetes 基礎觀念。",
+      "sidebar": "tutorialSidebar"
+    },
+    "k8s/2022.02.19.k8s_structure": {
+      "id": "k8s/2022.02.19.k8s_structure",
+      "title": "Kubernetes 架構",
+      "description": "K8s 是一套 Ops (Operation) 的工具，DevOps 指的是開發部門與維運部門的整合(Dev + Ops)，然而由於實務上，往往開發速度 > 維運部署的速度，因此 DevOps 的議題往往是產品開發的重點。GitOps 則是自動化部屬與整合的產物，搭配 Git Repository 工具使用，快速的將產品部署於 K8s cluster中。",
+      "sidebar": "tutorialSidebar"
+    },
+    "k8s/2022.03.20.k8s.devops": {
+      "id": "k8s/2022.03.20.k8s.devops",
+      "title": "K8s 在 DevOps 中的作用",
+      "description": "K8s 是一套 Ops (Operation) 的工具，DevOps 指的是開發部門與維運部門的整合(Dev + Ops)，然而由於實務上，往往開發速度 > 維運部署的速度，因此 DevOps 的議題往往是產品開發的重點。GitOps 則是自動化部屬與整合的產物，搭配 Git Repository 工具使用，快速的將產品部署於 K8s cluster中。",
+      "sidebar": "tutorialSidebar"
+    },
+    "k8s/2022.04.30.distribution_forces": {
+      "id": "k8s/2022.04.30.distribution_forces",
+      "title": "分散式系統: 現代軟體架構與設計考量",
+      "description": "分散式系統的定義: A distributed system is a collection of autonomous computing elements that appears to its users as a single coherent system。",
+      "sidebar": "tutorialSidebar"
+    },
+    "k8s/2023.09.17.raspberry_pi_with_k3d": {
+      "id": "k8s/2023.09.17.raspberry_pi_with_k3d",
+      "title": "使用 K3d 在 要在 Raspberry Pi4 筆記",
+      "description": "介紹有關於 k3d 如何在raspberry pi跑起來與設定的小筆記",
+      "sidebar": "tutorialSidebar"
+    },
+    "patterns/09.24.introduce_vvl": {
+      "id": "patterns/09.24.introduce_vvl",
+      "title": "09.24.introduce_vvl",
+      "description": "",
+      "sidebar": "tutorialSidebar"
+    },
+    "patterns/2021.09.04.from_mod_to_structure": {
+      "id": "patterns/2021.09.04.from_mod_to_structure",
+      "title": "Domain Model: 從無到有規劃新的服務",
+      "description": "規劃軟體服務的過程比實作來的重要，在還未規劃完整直接開始，很容易造成開發出來的產品不符合客戶的需求。但怎麼規劃又是一個問題，在現實生活中，不少Application 開發後使用者完全不買單的案例…因此如何規劃就是一個重點。",
+      "sidebar": "tutorialSidebar"
+    },
+    "patterns/2021.12.31.cqrs": {
+      "id": "patterns/2021.12.31.cqrs",
+      "title": "Domain Model: 從無到有規劃新的服務",
+      "description": "CQRS 命令查詢職責分離模式，在談論這個之前必須要先談論OO(Object-Oriented)裡面的CQS(Command Query Separation)因為兩者的概念一樣，只是應用層級不太一樣。",
+      "sidebar": "tutorialSidebar"
+    },
+    "patterns/2022.06.17.how_microservice_data_store": {
+      "id": "patterns/2022.06.17.how_microservice_data_store",
+      "title": "Backend System in Microservice Architecture: Where Does data store",
+      "description": "At recent years, the Microservice architecture pattern widely applied in new systems. On the other side about old system, it also was transformed into Microservice architecture from monolithic architecture. The biggest reason why Ｍicroservice is popular is that the development and maintenance costs will significantly decrease in the long term",
+      "sidebar": "tutorialSidebar"
+    },
+    "patterns/2022.11.16.ambassador_pattern": {
+      "id": "patterns/2022.11.16.ambassador_pattern",
+      "title": "Ambassador pattern with Shared Database Pattern",
+      "description": "In Micro-Service architecture, the shared database pattern is popular. It does not let a service maintain a database by itself, instead of sharing the database between services. Because of the query issues and scalability issues such as Query, multiple data from multiple services and sometimes must do replication or sharded pattern",
+      "sidebar": "tutorialSidebar"
+    },
+    "security/2020.12.20.auth_2_tutorial": {
+      "id": "security/2020.12.20.auth_2_tutorial",
+      "title": "從 RFC 規格書觀點解析 OAuth 2.0",
+      "description": "OAuth2 目前一種 Web 主流的安全認證方法，是一種授權框架，資源所有者(Resource Owner)可以藉由授權伺服器(Authorization Server)來允許第三方應用程式(Client)來訪問的受保護的資源(Protected Resource)。",
+      "sidebar": "tutorialSidebar"
+    },
+    "security/2021.05.01.different_from_bearer_and_basic_token": {
+      "id": "security/2021.05.01.different_from_bearer_and_basic_token",
+      "title": "HTTP Token 使用方式: Basic Token v.s Bearer Token",
+      "description": "在Auth的過程，很常會看到Basic、Bearer 型態的Token，而是用的場景不太一樣。Basic 用在存取一個網站、網域的時候，Bearer則是用於存取Protect Resource 的時候。",
+      "sidebar": "tutorialSidebar"
+    },
+    "torch/2020.11.04.torch_server_tutorial": {
+      "id": "torch/2020.11.04.torch_server_tutorial",
+      "title": "使用 TorchServe 部署 Model",
+      "description": "TorchServe 是 PyTorch 提供給開發者部署 models 的工具（實驗階段）。也就是說開發者不用再寫 HTTP 服務去部署，直接使用 TorchServe 工具就可以了！",
+      "sidebar": "tutorialSidebar"
+    },
+    "web_rtc/2020.11.19.apprtc_tutorial": {
+      "id": "web_rtc/2020.11.19.apprtc_tutorial",
+      "title": "How do AppRTC work in WebRTC mechanism?",
+      "description": "In this article, we illustrate how AppRTC do work.",
+      "sidebar": "tutorialSidebar"
+    }
+  }
+}

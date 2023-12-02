@@ -1,0 +1,32 @@
+{
+  "unversionedId": "patterns/2021.12.31.cqrs",
+  "id": "patterns/2021.12.31.cqrs",
+  "title": "Domain Model: 從無到有規劃新的服務",
+  "description": "CQRS 命令查詢職責分離模式，在談論這個之前必須要先談論OO(Object-Oriented)裡面的CQS(Command Query Separation)因為兩者的概念一樣，只是應用層級不太一樣。",
+  "source": "@site/docs/patterns/2021.12.31.cqrs.md",
+  "sourceDirName": "patterns",
+  "slug": "/patterns/2021.12.31.cqrs",
+  "permalink": "/docs/patterns/2021.12.31.cqrs",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "title": "Domain Model: 從無到有規劃新的服務",
+    "description": "CQRS 命令查詢職責分離模式，在談論這個之前必須要先談論OO(Object-Oriented)裡面的CQS(Command Query Separation)因為兩者的概念一樣，只是應用層級不太一樣。",
+    "keywords": [
+      "architecture pattern",
+      "cqrs"
+    ],
+    "sidebar_position": 2
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Domain Model: 從無到有規劃新的服務",
+    "permalink": "/docs/patterns/2021.09.04.from_mod_to_structure"
+  },
+  "next": {
+    "title": "Backend System in Microservice Architecture: Where Does data store",
+    "permalink": "/docs/patterns/2022.06.17.how_microservice_data_store"
+  }
+}

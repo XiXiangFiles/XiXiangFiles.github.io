@@ -1,0 +1,27 @@
+{
+  "unversionedId": "web_rtc/2020.11.19.apprtc_tutorial",
+  "id": "web_rtc/2020.11.19.apprtc_tutorial",
+  "title": "How do AppRTC work in WebRTC mechanism?",
+  "description": "In this article, we illustrate how AppRTC do work.",
+  "source": "@site/docs/web_rtc/2020.11.19.apprtc_tutorial.md",
+  "sourceDirName": "web_rtc",
+  "slug": "/web_rtc/2020.11.19.apprtc_tutorial",
+  "permalink": "/docs/web_rtc/2020.11.19.apprtc_tutorial",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "title": "How do AppRTC work in WebRTC mechanism?",
+    "description": "In this article, we illustrate how AppRTC do work.",
+    "keywords": [
+      "WebRTC"
+    ],
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "使用 TorchServe 部署 Model",
+    "permalink": "/docs/torch/2020.11.04.torch_server_tutorial"
+  }
+}

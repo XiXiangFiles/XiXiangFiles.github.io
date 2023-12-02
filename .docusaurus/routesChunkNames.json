@@ -1,0 +1,123 @@
+{
+  "/markdown-page-1b2": {
+    "__comp": "1f391b9e",
+    "__context": {
+      "plugin": "48705ec4"
+    },
+    "content": "393be207"
+  },
+  "/docs-0d5": {
+    "__comp": "1be78505",
+    "__context": {
+      "plugin": "d1365979"
+    },
+    "versionMetadata": "935f2afb"
+  },
+  "/docs/blockchain/2021.03.07.blockchain_issues-062": {
+    "__comp": "17896441",
+    "content": "48bc6d1f"
+  },
+  "/docs/broker/2020.11.11.what_is_broker-735": {
+    "__comp": "17896441",
+    "content": "a9e59852"
+  },
+  "/docs/broker/2021.07.12.mqtt5_vs_3-d1c": {
+    "__comp": "17896441",
+    "content": "de5b6238"
+  },
+  "/docs/database/2021.04.18.smalltalk_nosql-c5e": {
+    "__comp": "17896441",
+    "content": "131bc596"
+  },
+  "/docs/database/2022.09.23.how_pick_database-37f": {
+    "__comp": "17896441",
+    "content": "2e8b8e1d"
+  },
+  "/docs/golang/2020.12.06.go_mod_tutorial-4e3": {
+    "__comp": "17896441",
+    "content": "3a11c79f"
+  },
+  "/docs/golang/2021.02.21.goroutine_tutorial-4cb": {
+    "__comp": "17896441",
+    "content": "3bb367ab"
+  },
+  "/docs/golang/2021.10.23.advance_golang-d36": {
+    "__comp": "17896441",
+    "content": "e24de6c7"
+  },
+  "/docs/golang/2023.06.26.let_goroutine_debug_easy-382": {
+    "__comp": "17896441",
+    "content": "0d92d501"
+  },
+  "/docs/http/2020.11.25.overview_the_websocket_mechanism-462": {
+    "__comp": "17896441",
+    "content": "a58a9fa0"
+  },
+  "/docs/intro-aed": {
+    "__comp": "17896441",
+    "content": "0e384e19"
+  },
+  "/docs/k8s/2022.02.14.shorttalk_k8s-6fd": {
+    "__comp": "17896441",
+    "content": "eee00116"
+  },
+  "/docs/k8s/2022.02.19.k8s_structure-923": {
+    "__comp": "17896441",
+    "content": "32300f1b"
+  },
+  "/docs/k8s/2022.03.20.k8s.devops-bc8": {
+    "__comp": "17896441",
+    "content": "63b6d05e"
+  },
+  "/docs/k8s/2022.04.30.distribution_forces-745": {
+    "__comp": "17896441",
+    "content": "a69fb0dd"
+  },
+  "/docs/k8s/2023.09.17.raspberry_pi_with_k3d-ad5": {
+    "__comp": "17896441",
+    "content": "225672b9"
+  },
+  "/docs/patterns/09.24.introduce_vvl-c96": {
+    "__comp": "17896441",
+    "content": "462009f5"
+  },
+  "/docs/patterns/2021.09.04.from_mod_to_structure-ef7": {
+    "__comp": "17896441",
+    "content": "eaf45087"
+  },
+  "/docs/patterns/2021.12.31.cqrs-a94": {
+    "__comp": "17896441",
+    "content": "a3d1010c"
+  },
+  "/docs/patterns/2022.06.17.how_microservice_data_store-e7b": {
+    "__comp": "17896441",
+    "content": "21a2b0d2"
+  },
+  "/docs/patterns/2022.11.16.ambassador_pattern-b93": {
+    "__comp": "17896441",
+    "content": "b880def6"
+  },
+  "/docs/security/2020.12.20.auth_2_tutorial-081": {
+    "__comp": "17896441",
+    "content": "c8069a8a"
+  },
+  "/docs/security/2021.05.01.different_from_bearer_and_basic_token-560": {
+    "__comp": "17896441",
+    "content": "33ea39e6"
+  },
+  "/docs/torch/2020.11.04.torch_server_tutorial-cfb": {
+    "__comp": "17896441",
+    "content": "a4f78d82"
+  },
+  "/docs/web_rtc/2020.11.19.apprtc_tutorial-109": {
+    "__comp": "17896441",
+    "content": "f31f3c19"
+  },
+  "/-a13": {
+    "__comp": "c4f5d8e4",
+    "__context": {
+      "plugin": "48705ec4"
+    },
+    "config": "5e9f5e1a"
+  }
+}

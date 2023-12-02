@@ -1,0 +1,33 @@
+{
+  "unversionedId": "security/2021.05.01.different_from_bearer_and_basic_token",
+  "id": "security/2021.05.01.different_from_bearer_and_basic_token",
+  "title": "HTTP Token 使用方式: Basic Token v.s Bearer Token",
+  "description": "在Auth的過程，很常會看到Basic、Bearer 型態的Token，而是用的場景不太一樣。Basic 用在存取一個網站、網域的時候，Bearer則是用於存取Protect Resource 的時候。",
+  "source": "@site/docs/security/2021.05.01.different_from_bearer_and_basic_token.md",
+  "sourceDirName": "security",
+  "slug": "/security/2021.05.01.different_from_bearer_and_basic_token",
+  "permalink": "/docs/security/2021.05.01.different_from_bearer_and_basic_token",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "title": "HTTP Token 使用方式: Basic Token v.s Bearer Token",
+    "description": "在Auth的過程，很常會看到Basic、Bearer 型態的Token，而是用的場景不太一樣。Basic 用在存取一個網站、網域的時候，Bearer則是用於存取Protect Resource 的時候。",
+    "keywords": [
+      "http",
+      "auth",
+      "token"
+    ],
+    "sidebar_position": 2
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "從 RFC 規格書觀點解析 OAuth 2.0",
+    "permalink": "/docs/security/2020.12.20.auth_2_tutorial"
+  },
+  "next": {
+    "title": "使用 TorchServe 部署 Model",
+    "permalink": "/docs/torch/2020.11.04.torch_server_tutorial"
+  }
+}

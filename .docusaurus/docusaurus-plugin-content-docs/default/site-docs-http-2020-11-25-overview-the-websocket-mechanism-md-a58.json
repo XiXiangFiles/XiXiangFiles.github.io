@@ -1,0 +1,32 @@
+{
+  "unversionedId": "http/2020.11.25.overview_the_websocket_mechanism",
+  "id": "http/2020.11.25.overview_the_websocket_mechanism",
+  "title": "Overview The WebSocket Mechanism",
+  "description": "This article introduces What’s the Websocket and how it works.",
+  "source": "@site/docs/http/2020.11.25.overview_the_websocket_mechanism.md",
+  "sourceDirName": "http",
+  "slug": "/http/2020.11.25.overview_the_websocket_mechanism",
+  "permalink": "/docs/http/2020.11.25.overview_the_websocket_mechanism",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "title": "Overview The WebSocket Mechanism",
+    "description": "This article introduces What’s the Websocket and how it works.",
+    "keywords": [
+      "websocket",
+      "http"
+    ],
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "How do pick the database more correctly",
+    "permalink": "/docs/database/2022.09.23.how_pick_database"
+  },
+  "next": {
+    "title": "Domain Model: 從無到有規劃新的服務",
+    "permalink": "/docs/patterns/2021.09.04.from_mod_to_structure"
+  }
+}

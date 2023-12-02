@@ -1,0 +1,32 @@
+{
+  "unversionedId": "torch/2020.11.04.torch_server_tutorial",
+  "id": "torch/2020.11.04.torch_server_tutorial",
+  "title": "使用 TorchServe 部署 Model",
+  "description": "TorchServe 是 PyTorch 提供給開發者部署 models 的工具（實驗階段）。也就是說開發者不用再寫 HTTP 服務去部署，直接使用 TorchServe 工具就可以了！",
+  "source": "@site/docs/torch/2020.11.04.torch_server_tutorial.md",
+  "sourceDirName": "torch",
+  "slug": "/torch/2020.11.04.torch_server_tutorial",
+  "permalink": "/docs/torch/2020.11.04.torch_server_tutorial",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "title": "使用 TorchServe 部署 Model",
+    "description": "TorchServe 是 PyTorch 提供給開發者部署 models 的工具（實驗階段）。也就是說開發者不用再寫 HTTP 服務去部署，直接使用 TorchServe 工具就可以了！",
+    "keywords": [
+      "TorchServer",
+      "PyTorch"
+    ],
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "HTTP Token 使用方式: Basic Token v.s Bearer Token",
+    "permalink": "/docs/security/2021.05.01.different_from_bearer_and_basic_token"
+  },
+  "next": {
+    "title": "How do AppRTC work in WebRTC mechanism?",
+    "permalink": "/docs/web_rtc/2020.11.19.apprtc_tutorial"
+  }
+}

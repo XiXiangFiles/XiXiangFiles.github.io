@@ -1,0 +1,24 @@
+{
+  "unversionedId": "patterns/09.24.introduce_vvl",
+  "id": "patterns/09.24.introduce_vvl",
+  "title": "09.24.introduce_vvl",
+  "description": "",
+  "source": "@site/docs/patterns/2023..09.24.introduce_vvl.md",
+  "sourceDirName": "patterns",
+  "slug": "/patterns/09.24.introduce_vvl",
+  "permalink": "/docs/patterns/09.24.introduce_vvl",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2023,
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Ambassador pattern with Shared Database Pattern",
+    "permalink": "/docs/patterns/2022.11.16.ambassador_pattern"
+  },
+  "next": {
+    "title": "Broker 到底是什麼",
+    "permalink": "/docs/broker/2020.11.11.what_is_broker"
+  }
+}

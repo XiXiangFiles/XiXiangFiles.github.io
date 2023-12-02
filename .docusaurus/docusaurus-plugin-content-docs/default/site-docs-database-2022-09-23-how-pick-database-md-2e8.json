@@ -1,0 +1,33 @@
+{
+  "unversionedId": "database/2022.09.23.how_pick_database",
+  "id": "database/2022.09.23.how_pick_database",
+  "title": "How do pick the database more correctly",
+  "description": "There are variety databases that we can choose. So that, many developers choose the database by feeling or by popularity. This article give the developer some advices to choose database by some criterial.",
+  "source": "@site/docs/database/2022.09.23.how_pick_database.md",
+  "sourceDirName": "database",
+  "slug": "/database/2022.09.23.how_pick_database",
+  "permalink": "/docs/database/2022.09.23.how_pick_database",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "title": "How do pick the database more correctly",
+    "description": "There are variety databases that we can choose. So that, many developers choose the database by feeling or by popularity. This article give the developer some advices to choose database by some criterial.",
+    "keywords": [
+      "database",
+      "NoSQL",
+      "RDBMS"
+    ],
+    "sidebar_position": 2
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "[淺談]-NoSQL資料庫怎麼選",
+    "permalink": "/docs/database/2021.04.18.smalltalk_nosql"
+  },
+  "next": {
+    "title": "Overview The WebSocket Mechanism",
+    "permalink": "/docs/http/2020.11.25.overview_the_websocket_mechanism"
+  }
+}

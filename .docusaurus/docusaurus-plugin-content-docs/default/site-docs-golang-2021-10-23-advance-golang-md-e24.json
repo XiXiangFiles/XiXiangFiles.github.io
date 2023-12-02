@@ -1,0 +1,35 @@
+{
+  "unversionedId": "golang/2021.10.23.advance_golang",
+  "id": "golang/2021.10.23.advance_golang",
+  "title": "Golang 進階用法",
+  "description": "介紹有關於 golang 中的 reflection, interface, tag 等等, 以及有關於 uintptr, unsafe.Pointer 的小知識",
+  "source": "@site/docs/golang/2021.10.23.advance_golang.md",
+  "sourceDirName": "golang",
+  "slug": "/golang/2021.10.23.advance_golang",
+  "permalink": "/docs/golang/2021.10.23.advance_golang",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "title": "Golang 進階用法",
+    "description": "介紹有關於 golang 中的 reflection, interface, tag 等等, 以及有關於 uintptr, unsafe.Pointer 的小知識",
+    "keywords": [
+      "golang",
+      "annotation",
+      "reflection",
+      "interface型別轉",
+      "tag"
+    ],
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Jerry Wang Blog",
+    "permalink": "/docs/intro"
+  },
+  "next": {
+    "title": "讓 Goroutine Debug 變得更簡單",
+    "permalink": "/docs/golang/2023.06.26.let_goroutine_debug_easy"
+  }
+}

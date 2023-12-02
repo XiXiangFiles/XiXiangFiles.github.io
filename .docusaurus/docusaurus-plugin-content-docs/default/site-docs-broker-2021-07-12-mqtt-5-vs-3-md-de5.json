@@ -1,0 +1,32 @@
+{
+  "unversionedId": "broker/2021.07.12.mqtt5_vs_3",
+  "id": "broker/2021.07.12.mqtt5_vs_3",
+  "title": "[深入淺出MQTT]:  v3.1.1與v5 的差異",
+  "description": "MQTT v3.1.1 與 v5 完全相容，且提供許多Cluster 所需要的功能，如Shared Subscriptions、 User Properties等實用功能，且不會因為新增加功能造成效能低落的問題。",
+  "source": "@site/docs/broker/2021.07.12.mqtt5_vs_3.md",
+  "sourceDirName": "broker",
+  "slug": "/broker/2021.07.12.mqtt5_vs_3",
+  "permalink": "/docs/broker/2021.07.12.mqtt5_vs_3",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "title": "[深入淺出MQTT]:  v3.1.1與v5 的差異",
+    "description": "MQTT v3.1.1 與 v5 完全相容，且提供許多Cluster 所需要的功能，如Shared Subscriptions、 User Properties等實用功能，且不會因為新增加功能造成效能低落的問題。",
+    "keywords": [
+      "mqtt",
+      "m2m"
+    ],
+    "sidebar_position": 2
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Broker 到底是什麼",
+    "permalink": "/docs/broker/2020.11.11.what_is_broker"
+  },
+  "next": {
+    "title": "區塊鏈物聯網架構 解決哪些安全性議題？",
+    "permalink": "/docs/blockchain/2021.03.07.blockchain_issues"
+  }
+}

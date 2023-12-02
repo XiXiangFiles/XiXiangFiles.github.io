@@ -1,0 +1,31 @@
+{
+  "unversionedId": "patterns/2021.09.04.from_mod_to_structure",
+  "id": "patterns/2021.09.04.from_mod_to_structure",
+  "title": "Domain Model: 從無到有規劃新的服務",
+  "description": "規劃軟體服務的過程比實作來的重要，在還未規劃完整直接開始，很容易造成開發出來的產品不符合客戶的需求。但怎麼規劃又是一個問題，在現實生活中，不少Application 開發後使用者完全不買單的案例…因此如何規劃就是一個重點。",
+  "source": "@site/docs/patterns/2021.09.04.from_mod_to_structure.md",
+  "sourceDirName": "patterns",
+  "slug": "/patterns/2021.09.04.from_mod_to_structure",
+  "permalink": "/docs/patterns/2021.09.04.from_mod_to_structure",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "title": "Domain Model: 從無到有規劃新的服務",
+    "description": "規劃軟體服務的過程比實作來的重要，在還未規劃完整直接開始，很容易造成開發出來的產品不符合客戶的需求。但怎麼規劃又是一個問題，在現實生活中，不少Application 開發後使用者完全不買單的案例…因此如何規劃就是一個重點。",
+    "keywords": [
+      "architecture pattern"
+    ],
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Overview The WebSocket Mechanism",
+    "permalink": "/docs/http/2020.11.25.overview_the_websocket_mechanism"
+  },
+  "next": {
+    "title": "Domain Model: 從無到有規劃新的服務",
+    "permalink": "/docs/patterns/2021.12.31.cqrs"
+  }
+}

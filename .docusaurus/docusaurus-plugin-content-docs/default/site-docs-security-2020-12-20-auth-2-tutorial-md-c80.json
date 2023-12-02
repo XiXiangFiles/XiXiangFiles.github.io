@@ -1,0 +1,34 @@
+{
+  "unversionedId": "security/2020.12.20.auth_2_tutorial",
+  "id": "security/2020.12.20.auth_2_tutorial",
+  "title": "從 RFC 規格書觀點解析 OAuth 2.0",
+  "description": "OAuth2 目前一種 Web 主流的安全認證方法，是一種授權框架，資源所有者(Resource Owner)可以藉由授權伺服器(Authorization Server)來允許第三方應用程式(Client)來訪問的受保護的資源(Protected Resource)。",
+  "source": "@site/docs/security/2020.12.20.auth_2_tutorial.md",
+  "sourceDirName": "security",
+  "slug": "/security/2020.12.20.auth_2_tutorial",
+  "permalink": "/docs/security/2020.12.20.auth_2_tutorial",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "title": "從 RFC 規格書觀點解析 OAuth 2.0",
+    "description": "OAuth2 目前一種 Web 主流的安全認證方法，是一種授權框架，資源所有者(Resource Owner)可以藉由授權伺服器(Authorization Server)來允許第三方應用程式(Client)來訪問的受保護的資源(Protected Resource)。",
+    "keywords": [
+      "architecture pattern",
+      "microservice",
+      "auth2.0",
+      "ambassador pattern"
+    ],
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "使用 K3d 在 要在 Raspberry Pi4 筆記",
+    "permalink": "/docs/k8s/2023.09.17.raspberry_pi_with_k3d"
+  },
+  "next": {
+    "title": "HTTP Token 使用方式: Basic Token v.s Bearer Token",
+    "permalink": "/docs/security/2021.05.01.different_from_bearer_and_basic_token"
+  }
+}

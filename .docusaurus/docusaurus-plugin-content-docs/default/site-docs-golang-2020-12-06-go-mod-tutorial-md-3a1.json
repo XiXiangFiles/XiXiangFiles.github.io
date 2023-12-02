@@ -1,0 +1,32 @@
+{
+  "unversionedId": "golang/2020.12.06.go_mod_tutorial",
+  "id": "golang/2020.12.06.go_mod_tutorial",
+  "title": "Golang go mod 入門",
+  "description": "主要屆是有關於 go mod 的入門指南",
+  "source": "@site/docs/golang/2020.12.06.go_mod_tutorial.md",
+  "sourceDirName": "golang",
+  "slug": "/golang/2020.12.06.go_mod_tutorial",
+  "permalink": "/docs/golang/2020.12.06.go_mod_tutorial",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "title": "Golang go mod 入門",
+    "description": "主要屆是有關於 go mod 的入門指南",
+    "keywords": [
+      "golang",
+      "mod"
+    ],
+    "sidebar_position": 4
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "讓 Goroutine Debug 變得更簡單",
+    "permalink": "/docs/golang/2023.06.26.let_goroutine_debug_easy"
+  },
+  "next": {
+    "title": "Golang Goroutine Concurrency多執行緒淺談",
+    "permalink": "/docs/golang/2021.02.21.goroutine_tutorial"
+  }
+}

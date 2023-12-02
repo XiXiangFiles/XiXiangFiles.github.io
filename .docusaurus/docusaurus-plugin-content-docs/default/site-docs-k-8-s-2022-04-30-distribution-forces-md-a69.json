@@ -1,0 +1,33 @@
+{
+  "unversionedId": "k8s/2022.04.30.distribution_forces",
+  "id": "k8s/2022.04.30.distribution_forces",
+  "title": "分散式系統: 現代軟體架構與設計考量",
+  "description": "分散式系統的定義: A distributed system is a collection of autonomous computing elements that appears to its users as a single coherent system。",
+  "source": "@site/docs/k8s/2022.04.30.distribution_forces.md",
+  "sourceDirName": "k8s",
+  "slug": "/k8s/2022.04.30.distribution_forces",
+  "permalink": "/docs/k8s/2022.04.30.distribution_forces",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "title": "分散式系統: 現代軟體架構與設計考量",
+    "description": "分散式系統的定義: A distributed system is a collection of autonomous computing elements that appears to its users as a single coherent system。",
+    "keywords": [
+      "分散式系統",
+      "distribution forces",
+      "k8s"
+    ],
+    "sidebar_position": 3
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "K8s 在 DevOps 中的作用",
+    "permalink": "/docs/k8s/2022.03.20.k8s.devops"
+  },
+  "next": {
+    "title": "使用 K3d 在 要在 Raspberry Pi4 筆記",
+    "permalink": "/docs/k8s/2023.09.17.raspberry_pi_with_k3d"
+  }
+}

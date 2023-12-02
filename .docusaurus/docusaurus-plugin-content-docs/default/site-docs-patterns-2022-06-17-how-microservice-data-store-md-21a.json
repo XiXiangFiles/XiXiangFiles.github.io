@@ -1,0 +1,33 @@
+{
+  "unversionedId": "patterns/2022.06.17.how_microservice_data_store",
+  "id": "patterns/2022.06.17.how_microservice_data_store",
+  "title": "Backend System in Microservice Architecture: Where Does data store",
+  "description": "At recent years, the Microservice architecture pattern widely applied in new systems. On the other side about old system, it also was transformed into Microservice architecture from monolithic architecture. The biggest reason why Ｍicroservice is popular is that the development and maintenance costs will significantly decrease in the long term",
+  "source": "@site/docs/patterns/2022.06.17.how_microservice_data_store.md",
+  "sourceDirName": "patterns",
+  "slug": "/patterns/2022.06.17.how_microservice_data_store",
+  "permalink": "/docs/patterns/2022.06.17.how_microservice_data_store",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "title": "Backend System in Microservice Architecture: Where Does data store",
+    "description": "At recent years, the Microservice architecture pattern widely applied in new systems. On the other side about old system, it also was transformed into Microservice architecture from monolithic architecture. The biggest reason why Ｍicroservice is popular is that the development and maintenance costs will significantly decrease in the long term",
+    "keywords": [
+      "architecture pattern",
+      "microservice",
+      "event driven"
+    ],
+    "sidebar_position": 3
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Domain Model: 從無到有規劃新的服務",
+    "permalink": "/docs/patterns/2021.12.31.cqrs"
+  },
+  "next": {
+    "title": "Ambassador pattern with Shared Database Pattern",
+    "permalink": "/docs/patterns/2022.11.16.ambassador_pattern"
+  }
+}

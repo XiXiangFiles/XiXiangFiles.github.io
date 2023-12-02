@@ -1,0 +1,33 @@
+{
+  "unversionedId": "database/2021.04.18.smalltalk_nosql",
+  "id": "database/2021.04.18.smalltalk_nosql",
+  "title": "[淺談]-NoSQL資料庫怎麼選",
+  "description": "NoSQL是目前在雲端服務很常使用的一種型態的資料庫，僅具備BASE原則。然而在市場上有許多種類的NoSQL，如MongoDB、Redis、HBase...等，本文章則從Scalability、Sharding、Replication的角度切入，並同時帶入CAP理論進行分類。",
+  "source": "@site/docs/database/2021.04.18.smalltalk_nosql.md",
+  "sourceDirName": "database",
+  "slug": "/database/2021.04.18.smalltalk_nosql",
+  "permalink": "/docs/database/2021.04.18.smalltalk_nosql",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "title": "[淺談]-NoSQL資料庫怎麼選",
+    "description": "NoSQL是目前在雲端服務很常使用的一種型態的資料庫，僅具備BASE原則。然而在市場上有許多種類的NoSQL，如MongoDB、Redis、HBase...等，本文章則從Scalability、Sharding、Replication的角度切入，並同時帶入CAP理論進行分類。",
+    "keywords": [
+      "database",
+      "NoSQL",
+      "RDBMS"
+    ],
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Golang Goroutine Concurrency多執行緒淺談",
+    "permalink": "/docs/golang/2021.02.21.goroutine_tutorial"
+  },
+  "next": {
+    "title": "How do pick the database more correctly",
+    "permalink": "/docs/database/2022.09.23.how_pick_database"
+  }
+}
