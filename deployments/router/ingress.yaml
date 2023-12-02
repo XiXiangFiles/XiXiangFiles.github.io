@@ -1,0 +1,44 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect
+  namespace: public
+spec:
+  redirectScheme:
+    scheme: https
+    permanent: true
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cloud-ingress
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/router.middlewares: public-redirect@kubernetescrd
+spec:
+  tls:
+  - hosts:
+    - wangs.cloud
+    - www.wangs.cloud
+    secretName: guest-service-secret
+  rules:
+  - host: wangs.cloud
+    http:
+      paths:
+      - path: "/"
+        pathType: Prefix
+        backend:
+          service:
+            name: blog
+            port:
+              number: 80
+  - host: www.wangs.cloud
+    http:
+      paths:
+      - path: "/"
+        pathType: Prefix
+        backend:
+          service:
+            name: blog
+            port:
+              number: 80
